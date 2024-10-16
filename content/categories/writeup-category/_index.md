@@ -1,6 +1,6 @@
 ---
-title: Example Category
-description: A description of this category
+title: Writeup
+description: All about Capture The Flag Writeup
 image:
 
 # Badge style
