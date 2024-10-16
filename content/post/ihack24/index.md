@@ -318,7 +318,7 @@ import requests
 
 api_url = "https://api.telegram.org/bot{}/forwardMessage"
 
-bot_token = "6610257712:AAFq_tYFDs5ZpWttF94KchKyzULBVQUW0PY"
+bot_token = "6610257712:<REDACTED>AAFq_tYFDs5ZpWttF94KchKyzULBVQUW0PY"
 
 from_chat_id = "6212716112"
 chat_id = "6212716112"
