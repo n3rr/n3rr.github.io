@@ -1,6 +1,6 @@
 ---
 title: Code Combat X IHack Qualifying Round 2024
-description: This is my personal writeup on this competition. Check out my teammate for their writeup @1c1m0n @hackboredzzz
+description: This is my personal writeup on this competition. Check out my teammate for their writeup @hackboredzzz
 slug: ihack24
 date: 2024-08-16 00:00:00+0000
 image: ihack-poster.png
