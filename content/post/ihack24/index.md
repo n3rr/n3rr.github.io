@@ -5,7 +5,7 @@ slug: ihack24
 date: 2024-08-16 00:00:00+0000
 image: ihack-poster.png
 categories:
-    - Writeup
+    - writeup-category
 tags:
     - Splunk
     - Malware

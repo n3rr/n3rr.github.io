@@ -5,7 +5,7 @@ slug: malcore-chall
 date: 2024-08-25 00:00:00+0000
 image: image1.png
 categories:
-    - Writeup
+    - writeup-category
 tags:
     - Malware
     - Deobfuscation

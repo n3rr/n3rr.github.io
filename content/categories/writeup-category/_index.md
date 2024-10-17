@@ -1,7 +1,7 @@
 ---
 title: Writeup
 description: All about Capture The Flag Writeup
-image:
+image: writeup-image.png
 
 # Badge style
 style:

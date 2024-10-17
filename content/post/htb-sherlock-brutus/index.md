@@ -2,11 +2,11 @@
 title: Brutus
 description: 
 slug: brutus
-date: 2024-08-16 00:00:00+0000
+date: 2024-07-16 00:00:00+0000
 image: brutus.png
 categories:
-    - Writeup
-    - HTB-Sherlock
+    - writeup-category
+    - htb-sherlock-category
 tags:
     - Log Analysis
     - Brute Force
