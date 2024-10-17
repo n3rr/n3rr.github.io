@@ -1,0 +1,9 @@
+{{ range .Site.Params.social }}
+<a href="{{ .url }}" target="_blank">
+  {{ if strings.HasPrefix .params.icon "/" }}
+    <img src="{{ .params.icon }}" alt="{{ .name }}" style="width:24px; height:24px;">
+  {{ else }}
+    <i class="{{ .params.icon }}"></i>
+  {{ end }}
+</a>
+{{ end }}

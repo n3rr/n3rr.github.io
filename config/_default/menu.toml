@@ -21,4 +21,20 @@ name = "X"
 url = "https://x.com/6E3372"
 
 [social.params]
-icon = "brand-twitter"
+icon = "x"
+
+[[social]]
+identifier = "hackthebox"
+name = "Hack The Box"
+url = "https://app.hackthebox.com/profile/1334425"
+
+[social.params]
+icon = "hackthebox"
+
+[[social]]
+identifier = "tryhackme"
+name = "TryHackMe"
+url = "https://tryhackme.com/p/n3r"
+
+[social.params]
+icon = "tryhackme" 
