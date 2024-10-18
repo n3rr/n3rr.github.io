@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tools on n3rr</title><link>https://n3rr.github.io/categories/tools-category/</link><description>Recent content in Tools on n3rr</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 01 Jan 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://n3rr.github.io/categories/tools-category/index.xml" rel="self" type="application/rss+xml"/><item><title>DFIR Tools</title><link>https://n3rr.github.io/p/dfir-tools/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate><guid>https://n3rr.github.io/p/dfir-tools/</guid><description>&lt;img src="https://n3rr.github.io/p/dfir-tools/image.png" alt="Featured image of post DFIR Tools" />&lt;h1 id="volatility-2">Volatility 2
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install -y build-essential git libdistorm3-dev yara libraw1394-11 libcapstone-dev capstone-tool tzdata
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install -y python2 python2.7-dev libpython2-dev
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo python2 get-pip.py
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo python2 -m pip install -U setuptools wheel
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python2 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo python2 -m pip install yara
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo ln -s /usr/local/lib/python2.7/dist-packages/usr/lib/libyara.so /usr/lib/libyara.so
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python2 -m pip install -U git+https://github.com/volatilityfoundation/volatility.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="volatility-3">Volatility 3
+&lt;/h1>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt install -y build-essential git libdistorm3-dev yara libraw1394-11 libcapstone-dev capstone-tool tzdata
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt install -y python3 python3-dev libpython3-dev python3-pip python3-setuptools python3-wheel
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python3 -m pip install -U distorm3 yara pycrypto pillow openpyxl ujson pytz ipython capstone
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">python3 -m pip install -U git+https://github.com/volatilityfoundation/volatility3.git
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h1 id="mft-related">MFT Related
+&lt;/h1>&lt;ul>
+&lt;li>&lt;strong>MFTECmd&lt;/strong> -&amp;gt; &lt;a class="link" href="https://download.ericzimmermanstools.com/MFTECmd.zip" target="_blank" rel="noopener"
+>https://download.ericzimmermanstools.com/MFTECmd.zip&lt;/a>&lt;/li>
+&lt;li>&lt;strong>MFTExplorer&lt;/strong> -&amp;gt; &lt;a class="link" href="https://download.ericzimmermanstools.com/net6/MFTExplorer.zip" target="_blank" rel="noopener"
+>https://download.ericzimmermanstools.com/net6/MFTExplorer.zip&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="sqlite-db-browser">SQLite DB Browser
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://sqlitebrowser.org/dl/" target="_blank" rel="noopener"
+>https://sqlitebrowser.org/dl/&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Malware Analysis Tools</title><link>https://n3rr.github.io/p/malware-analysis-tools/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate><guid>https://n3rr.github.io/p/malware-analysis-tools/</guid><description>&lt;img src="https://n3rr.github.io/p/malware-analysis-tools/image.png" alt="Featured image of post Malware Analysis Tools" />&lt;h1 id="virustotal">VirusTotal
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.virustotal.com/gui/home/upload" target="_blank" rel="noopener"
+>https://www.virustotal.com/gui/home/upload&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="tiorun">Tio.run
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://tio.run/" target="_blank" rel="noopener"
+>https://tio.run/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="ida-freeware-3">IDA Freeware :3
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://hex-rays.com/ida-free/" target="_blank" rel="noopener"
+>https://hex-rays.com/ida-free/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="olevba">Olevba
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/decalage2/oletools/blob/master/oletools/olevba.py" target="_blank" rel="noopener"
+>https://github.com/decalage2/oletools/blob/master/oletools/olevba.py&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="pyinstxtractor">Pyinstxtractor
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/extremecoders-re/pyinstxtractor" target="_blank" rel="noopener"
+>https://github.com/extremecoders-re/pyinstxtractor&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="pycdc">Pycdc
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/zrax/pycdc" target="_blank" rel="noopener"
+>https://github.com/zrax/pycdc&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="apk-decompiler">APK Decompiler
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.decompiler.com/" target="_blank" rel="noopener"
+>https://www.decompiler.com/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="base64dump">Base64Dump
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/DidierStevens/DidierStevensSuite/blob/master/base64dump.py" target="_blank" rel="noopener"
+>https://github.com/DidierStevens/DidierStevensSuite/blob/master/base64dump.py&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h1 id="xorsearch">XORSearch
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/DidierStevens/DidierStevensSuite/blob/master/xorsearch.py" target="_blank" rel="noopener"
+>https://github.com/DidierStevens/DidierStevensSuite/blob/master/xorsearch.py&lt;/a>&lt;/li>
+&lt;/ul></description></item><item><title>Other Essential Tools</title><link>https://n3rr.github.io/p/other-essential-tools/</link><pubDate>Mon, 01 Jan 2024 00:00:00 +0000</pubDate><guid>https://n3rr.github.io/p/other-essential-tools/</guid><description>&lt;img src="https://n3rr.github.io/p/other-essential-tools/image.png" alt="Featured image of post Other Essential Tools" />&lt;h1 id="cyberchef">CyberChef
+&lt;/h1>&lt;ul>
+&lt;li>&lt;a class="link" href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener"
+>https://gchq.github.io/CyberChef/&lt;/a>&lt;/li>
+&lt;/ul></description></item></channel></rss>
