@@ -3,7 +3,7 @@ title: DFIR Tools
 description: A collection of tools used for DFIR
 slug: dfir-tools
 date: 2024-01-01 00:00:00+0000
-image: 
+image: image.png
 categories:
     - tools-category
 tags:
