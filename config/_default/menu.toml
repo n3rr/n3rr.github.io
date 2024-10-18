@@ -38,3 +38,11 @@ url = "https://tryhackme.com/p/n3r"
 
 [social.params]
 icon = "tryhackme" 
+
+[[social]]
+identifier = "btlo"
+name = "Blue Team Labs Online"
+url = "https://blueteamlabs.online/public/user/28c6cea0ce22c8ec55b0dc"
+
+[social.params]
+icon = "" 
