@@ -1,14 +1,14 @@
 ---
 title: Binary Badresources
-description: Kudos to my teammate 0xad3n for helping me solve this interesting challenge
+description: An analysis on Microsoft Windows Management Console RCE vulnerability (CVE-2024-43572). Kudos to my teammate ad3n for helping me solve this interesting challenge
 slug: htb-unictf24
-date: 2024-12-13 00:00:00+0000
+date: 2024-12-19 00:00:00+0000
 image: htb-uni.png
 categories:
     - writeup-category
 tags:
     - Malware Analysis
-    - Reverse Engineering
+    - CVE-2024-43572
 ---
 
 ![Challenge Description](image.png)
@@ -17,7 +17,7 @@ tags:
 $ file wanted.msc
 wanted.msc: XML 1.0 document, ASCII text, with very long lines (18023)
 ```
-Given was file named `wanted.msc`.
+Given was a file named `wanted.msc`.
 
 # Deobfuscating JS
 
@@ -45,7 +45,7 @@ chr(Asc(mid("Stxmsr$I|tpmgmxHmq$sfnWlipp0$sfnJWS0$sfnLXXTHmq$wxvYVP50$wxvYVP60
 
 First, it substact the characater with `4 (- (5) + (1))`, then `chr()` converts it to ASCII character.
 
-Reverse the process, and we got another script.
+Reverse the process, and we got a VBA script.
 
 ![](image4.png)
 
@@ -228,13 +228,13 @@ $ file 5f8f9e33bb5e13848af2622b66b2308c.json
 5f8f9e33bb5e13848af2622b66b2308c.json: PE32+ executable (DLL) (console) x86-64 Mono/.Net assembly, for MS Windows, 2 sections
 ```
 
-Because it is a .Net file, we use dnspy to dissamble it.
+Because it is a .Net file, we use dnspy to disassemble it.
 
 ![](image13.png)
 
 We can see from the code above, a ciphertext being declared. Let see how it goes in reverse order.
 
-First it convert it from base 64.
+First it convert the ciphertext from base 64.
 
 ![](image14.png)
 
@@ -255,7 +255,7 @@ The next few explaination will be based on the image below.
 
 ![](image8.png)
 
-![Deobfuscated Key](image9.png)
+![Obfuscated Key](image9.png)
 
 ![Sha256 to get the original key](image10.png)
 
@@ -273,7 +273,7 @@ For a short summary,
 - IV being used for the encryption was `tbbliftalildywic`
 - convert the encryption result to base64
 
-Now that we had all the information possible, decode the ciphertext
+Now that we had all the possible information, decode the ciphertext
 
 ![](image15.png)
 
@@ -311,3 +311,26 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
 And yes, finally got a flag
 
 > HTB{mSc_1s_b31n9_s3r10u5ly_4buSed}
+
+# Findings & summary
+
+Attacker C2 Server: http://windowsupdate.htb/
+
+- `wanted.msc`
+    - c1d786696213028cf8e77d9ef16f3ab7ec9ce4fea44a8d21be3c2ddceb09ff64 (Sha256)
+    - [VirusTotal](https://www.virustotal.com/gui/file/c1d786696213028cf8e77d9ef16f3ab7ec9ce4fea44a8d21be3c2ddceb09ff64)
+    - [CVE-2024-43572](https://www.broadcom.com/support/security-center/protection-bulletin/cve-2024-43572-microsoft-windows-management-console-rce-vulnerability) allow attackers to run arbitrary code within the context of the application
+
+- `csrss.exe`
+    - b5c916b0a9f8a6e1b7ca1621c7b7b931f0998bb0c6755164319b0b7e06621d43 (Sha256)
+    - [VirusTotal](https://www.virustotal.com/gui/file/b5c916b0a9f8a6e1b7ca1621c7b7b931f0998bb0c6755164319b0b7e06621d43)
+    - This file act as a dummy virus file to check if the security software is working properly [Link](https://en.wikipedia.org/wiki/EICAR_test_file)
+
+ - `5f8f9e33bb5e13848af2622b66b2308c.json`
+    - 353e23b24f7ef98836dd5ccd36e30ca64cac42241d17e7184cba6a0a4a802649 (Sha256)
+    - [VirusTotal](https://www.virustotal.com/gui/file/353e23b24f7ef98836dd5ccd36e30ca64cac42241d17e7184cba6a0a4a802649/detection)
+    - In this case, this file download `ec285935b46229d40b95438707a7efb2282f2f02.xml`
+
+- `ec285935b46229d40b95438707a7efb2282f2f02.xml`
+    - 567832aff4515a20c48feb202db80542aa47c5d699d8d258c48ae583254bf9fa (Sha256)
+    - [VirusTotal](https://www.virustotal.com/gui/file/567832aff4515a20c48feb202db80542aa47c5d699d8d258c48ae583254bf9fa/detection)

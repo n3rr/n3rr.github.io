@@ -7,7 +7,7 @@ image: image1.png
 categories:
     - writeup-category
 tags:
-    - Malware
+    - Malware Analysis
     - Deobfuscation
 ---
 

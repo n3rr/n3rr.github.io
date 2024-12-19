@@ -8,7 +8,7 @@ categories:
     - writeup-category
 tags:
     - Splunk
-    - Malware
+    - Malware Analysis
     - Digital Forensic
 ---
 
