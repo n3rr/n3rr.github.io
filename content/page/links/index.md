@@ -19,4 +19,4 @@ I'll try my best to keep this blog active :3
  | :---: | :---: | :---: |
  | 2024 | [UCC Internal CTF](https://www.linkedin.com/posts/uitm-cyberheroes-club-ucc-b5a6482bb_cybersecurity-ctf-capturetheflag-activity-7218550232182079488-OEtB?utm_source=share&utm_medium=member_desktop) | Organizer / Challenge Creator |
  | 2024 | [Girls In CTF 2024](https://www.linkedin.com/posts/rehack-xyz_on-october-12th-we-successfully-organized-activity-7251778931710648321-hOHt?utm_source=share&utm_medium=member_desktop) | Challenge Creator |
- | | | |
+ | 2024 | [Cyber Skill Level Up X UPM Mini CTF]()| Challenge Creator |
