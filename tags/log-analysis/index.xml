@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Log Analysis on n3rr</title><link>https://n3rr.github.io/tags/log-analysis/</link><description>Recent content in Log Analysis on n3rr</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Tue, 16 Jul 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://n3rr.github.io/tags/log-analysis/index.xml" rel="self" type="application/rss+xml"/><item><title>Brutus</title><link>https://n3rr.github.io/p/brutus/</link><pubDate>Tue, 16 Jul 2024 00:00:00 +0000</pubDate><guid>https://n3rr.github.io/p/brutus/</guid><description>&lt;img src="https://n3rr.github.io/p/brutus/brutus.png" alt="Featured image of post Brutus" />&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/chall-desc.png"
+width="1516"
+height="285"
+srcset="https://n3rr.github.io/p/brutus/chall-desc_hu_edb499d32523bf19.png 480w, https://n3rr.github.io/p/brutus/chall-desc_hu_24315f7ee0f153a7.png 1024w"
+loading="lazy"
+alt="Challenge Description"
+class="gallery-image"
+data-flex-grow="531"
+data-flex-basis="1276px"
+>&lt;/p>
+&lt;h1 id="task-1">Task 1
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/task1.png"
+width="746"
+height="50"
+srcset="https://n3rr.github.io/p/brutus/task1_hu_85f7175a6a245dce.png 480w, https://n3rr.github.io/p/brutus/task1_hu_39f52093a8ca942d.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1492"
+data-flex-basis="3580px"
+>&lt;/p>
+&lt;p>The provided auth.log shows that &lt;strong>65.2.161.68&lt;/strong> is the IP address that performed the bruteforce attack.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/info1.png"
+width="1532"
+height="398"
+srcset="https://n3rr.github.io/p/brutus/info1_hu_c526a10abd6a54c1.png 480w, https://n3rr.github.io/p/brutus/info1_hu_ea77641bf9af9a31.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="384"
+data-flex-basis="923px"
+>&lt;/p>
+&lt;p>It is because many failed login attempt within several seconds coming from that IP which indicate that the attacker is brute forcing login credentials.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> 65.2.161.68&lt;/p>&lt;/blockquote>
+&lt;h1 id="task-2">Task 2
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/task2.png"
+width="952"
+height="43"
+srcset="https://n3rr.github.io/p/brutus/task2_hu_d65ef2b3b280df04.png 480w, https://n3rr.github.io/p/brutus/task2_hu_fa3926fccb794e45.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="2213"
+data-flex-basis="5313px"
+>&lt;/p>
+&lt;p>Following the brute force progress, there is only one accepted login which is for username root, then it immediately disconnect, meaning that probably the brute force scripts are trying to finish the rest of the password list.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/info2.png"
+width="1613"
+height="378"
+srcset="https://n3rr.github.io/p/brutus/info2_hu_d019a6e2371dc091.png 480w, https://n3rr.github.io/p/brutus/info2_hu_a9d06d64d19ad406.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="426"
+data-flex-basis="1024px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> root&lt;/p>&lt;/blockquote>
+&lt;h1 id="task-3">Task 3
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/task3.png"
+width="765"
+height="38"
+srcset="https://n3rr.github.io/p/brutus/task3_hu_3f145a400bc2034b.png 480w, https://n3rr.github.io/p/brutus/task3_hu_79e84462e3ad409.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="2013"
+data-flex-basis="4831px"
+>&lt;/p>
+&lt;p>Of course after the brute forcing process is done, the attacker try to login with the valid credentials manually.&lt;/p>
+&lt;p>Here are the first manual login attempt by the attacker. Take this part and relate it with the &lt;strong>wtmp&lt;/strong> file given to get the exact timestamp the attacker logged in as root.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/info3.png"
+width="1507"
+height="80"
+srcset="https://n3rr.github.io/p/brutus/info3_hu_f955ce966f722a02.png 480w, https://n3rr.github.io/p/brutus/info3_hu_169599b6d724ec13.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1883"
+data-flex-basis="4521px"
+>&lt;/p>
+&lt;p>Using tools like &lt;strong>utmpdump&lt;/strong>, we can dump the wtmp files and see all the details.&lt;/p>
+&lt;p>The line highlighted on the picture below is related with picture above.&lt;/p>
+&lt;p>We can see the same IP address login at a similar timestamp&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/info4.png"
+width="1618"
+height="778"
+srcset="https://n3rr.github.io/p/brutus/info4_hu_b3b11e422bc35751.png 480w, https://n3rr.github.io/p/brutus/info4_hu_ef69ba99ad399cec.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="207"
+data-flex-basis="499px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> 2024-03-06 06:32:45&lt;/p>&lt;/blockquote>
+&lt;h1 id="task-4">Task 4
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/task4.png"
+width="1098"
+height="62"
+srcset="https://n3rr.github.io/p/brutus/task4_hu_974ea334817be599.png 480w, https://n3rr.github.io/p/brutus/task4_hu_1df5475952d86341.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1770"
+data-flex-basis="4250px"
+>&lt;/p>
+&lt;p>After any successful login, a session number will be assigned. Looking at the picture below, the user root logged in by the attacker being assigned as session number 37&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/info5.png"
+width="1507"
+height="80"
+srcset="https://n3rr.github.io/p/brutus/info5_hu_f955ce966f722a02.png 480w, https://n3rr.github.io/p/brutus/info5_hu_169599b6d724ec13.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1883"
+data-flex-basis="4521px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> 37&lt;/p>&lt;/blockquote>
+&lt;h1 id="task-5">Task 5
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/task5.png"
+width="1111"
+height="47"
+srcset="https://n3rr.github.io/p/brutus/task5_hu_474ce7ab2d4f56d3.png 480w, https://n3rr.github.io/p/brutus/task5_hu_ab4bb32455b2c35d.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="2363"
+data-flex-basis="5673px"
+>&lt;/p>
+&lt;p>Right after the attacker login manually, the attacker created a new user named &lt;strong>cyberjunkie&lt;/strong> and give a high privilege to it &lt;strong>by adding the user to the sudo group&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/info6.png"
+width="1918"
+height="653"
+srcset="https://n3rr.github.io/p/brutus/info6_hu_c716c760f581b947.png 480w, https://n3rr.github.io/p/brutus/info6_hu_3ca73cc321808246.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="293"
+data-flex-basis="704px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> cyberjunkie&lt;/p>&lt;/blockquote>
+&lt;h1 id="task-6">Task 6
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/task6.png"
+width="492"
+height="52"
+srcset="https://n3rr.github.io/p/brutus/task6_hu_3df14e9646e226a.png 480w, https://n3rr.github.io/p/brutus/task6_hu_f394c14033be7150.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="946"
+data-flex-basis="2270px"
+>&lt;/p>
+&lt;p>Understand what the attacker is doing, we can conclude that the attacker is using &lt;a class="link" href="https://attack.mitre.org/techniques/T1136/001/" target="_blank" rel="noopener"
+>T1136.001&lt;/a> for the attack.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> T1136.001&lt;/p>&lt;/blockquote>
+&lt;h1 id="task-7">Task 7
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/task7.png"
+width="1047"
+height="48"
+srcset="https://n3rr.github.io/p/brutus/task7_hu_8d4141a5c3671a35.png 480w, https://n3rr.github.io/p/brutus/task7_hu_b36bf4e684a8d060.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="2181"
+data-flex-basis="5235px"
+>&lt;/p>
+&lt;p>The session last for &lt;strong>279 seconds&lt;/strong> based on the findings in the &lt;strong>auth.log&lt;/strong>.&lt;/p>
+&lt;p>We can easily use the command &lt;code>strings auth.log | grep root&lt;/code> to only filter out the logs related to root&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/info7.png"
+width="1543"
+height="152"
+srcset="https://n3rr.github.io/p/brutus/info7_hu_77e8d9e68326c89a.png 480w, https://n3rr.github.io/p/brutus/info7_hu_eea7c0a4476b8b7b.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="1015"
+data-flex-basis="2436px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> 279&lt;/p>&lt;/blockquote>
+&lt;h1 id="task-8">Task 8
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/task8.png"
+width="1027"
+height="42"
+srcset="https://n3rr.github.io/p/brutus/task8_hu_5252fcc6ca5ee9dd.png 480w, https://n3rr.github.io/p/brutus/task8_hu_2b024ea27dbcf16b.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="2445"
+data-flex-basis="5868px"
+>&lt;/p>
+&lt;p>To search for command executed in auth.log, we can use command &lt;code>strings auth.log | grep COMMAND&lt;/code> to filter it out.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/info8.png"
+width="1917"
+height="76"
+srcset="https://n3rr.github.io/p/brutus/info8_hu_e2f9a656fc154c17.png 480w, https://n3rr.github.io/p/brutus/info8_hu_d38869cc6db6009f.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="2522"
+data-flex-basis="6053px"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>Flag:&lt;/strong> &lt;a class="link" href="https://raw.githubusercontent.com/montysecurity/linper/main/linper.sh" target="_blank" rel="noopener"
+>https://raw.githubusercontent.com/montysecurity/linper/main/linper.sh&lt;/a>&lt;/p>&lt;/blockquote>
+&lt;hr>
+&lt;p>&lt;img src="https://n3rr.github.io/p/brutus/congrats.png"
+width="1146"
+height="202"
+srcset="https://n3rr.github.io/p/brutus/congrats_hu_8e7c3cf41dbf17dd.png 480w, https://n3rr.github.io/p/brutus/congrats_hu_87e3e389de9d8637.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="567"
+data-flex-basis="1361px"
+>&lt;/p></description></item></channel></rss>

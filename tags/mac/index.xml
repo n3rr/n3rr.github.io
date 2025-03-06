@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mac on n3rr</title><link>https://n3rr.github.io/tags/mac/</link><description>Recent content in Mac on n3rr</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sun, 19 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://n3rr.github.io/tags/mac/index.xml" rel="self" type="application/rss+xml"/><item><title>EQCTF Famous Amos Writeup</title><link>https://n3rr.github.io/p/eqctf-famous-amos/</link><pubDate>Sun, 19 Jan 2025 00:00:00 +0000</pubDate><guid>https://n3rr.github.io/p/eqctf-famous-amos/</guid><description>&lt;img src="https://n3rr.github.io/p/eqctf-famous-amos/image-1.png" alt="Featured image of post EQCTF Famous Amos Writeup" />&lt;p>&lt;img src="https://n3rr.github.io/p/eqctf-famous-amos/image.png"
+width="627"
+height="798"
+srcset="https://n3rr.github.io/p/eqctf-famous-amos/image_hu_7f04761c52a493a.png 480w, https://n3rr.github.io/p/eqctf-famous-amos/image_hu_e74b2e2200ae2cff.png 1024w"
+loading="lazy"
+class="gallery-image"
+data-flex-grow="78"
+data-flex-basis="188px"
+>&lt;/p>
+&lt;hr>
+&lt;h1 id="analysing-network-traffic">Analysing Network Traffic
+&lt;/h1>&lt;p>Given was a &lt;code>.pcap&lt;/code> file to begin with.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ file famous-amos.pcapng
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">famous-amos.pcapng: pcapng capture file - version 1.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Upon analysing the traffic captured, there was several interesting HTTP packets to look at.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/eqctf-famous-amos/image-2.png"
+width="1431"
+height="201"
+srcset="https://n3rr.github.io/p/eqctf-famous-amos/image-2_hu_aa038e838f5baa79.png 480w, https://n3rr.github.io/p/eqctf-famous-amos/image-2_hu_6d57c15274be2d35.png 1024w"
+loading="lazy"
+alt="HTTP traffic"
+class="gallery-image"
+data-flex-grow="711"
+data-flex-basis="1708px"
+>&lt;/p>
+&lt;p>Here, &lt;code>192.168.111.139&lt;/code> downloads three files from ngrok server using &lt;code>curl&lt;/code>, which is &lt;code>BetaTest.pdf&lt;/code>, &lt;code>LegitLobsterGameDownloader.dmg&lt;/code> and &lt;code>bangboo.png&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/eqctf-famous-amos/image-3.png"
+width="698"
+height="226"
+srcset="https://n3rr.github.io/p/eqctf-famous-amos/image-3_hu_a597049815ebba42.png 480w, https://n3rr.github.io/p/eqctf-famous-amos/image-3_hu_b8e5089f19f81b8e.png 1024w"
+loading="lazy"
+alt="Downlaods BetaTest.pdf"
+class="gallery-image"
+data-flex-grow="308"
+data-flex-basis="741px"
+>&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/eqctf-famous-amos/image-4.png"
+width="867"
+height="200"
+srcset="https://n3rr.github.io/p/eqctf-famous-amos/image-4_hu_7679cdbd26aa15ef.png 480w, https://n3rr.github.io/p/eqctf-famous-amos/image-4_hu_bf766d25620deaff.png 1024w"
+loading="lazy"
+alt="Downloads LegitLobsterGameDownloader.dmg"
+class="gallery-image"
+data-flex-grow="433"
+data-flex-basis="1040px"
+>&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/eqctf-famous-amos/image-5.png"
+width="695"
+height="198"
+srcset="https://n3rr.github.io/p/eqctf-famous-amos/image-5_hu_1af9f0082814cbb1.png 480w, https://n3rr.github.io/p/eqctf-famous-amos/image-5_hu_42a53bd2acb82e65.png 1024w"
+loading="lazy"
+alt="Downlaods bangboo.png"
+class="gallery-image"
+data-flex-grow="351"
+data-flex-basis="842px"
+>&lt;/p>
+&lt;p>Then, it makes a POST request to upload something to &lt;code>/joinsystem&lt;/code> directory.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/eqctf-famous-amos/image-6.png"
+width="675"
+height="178"
+srcset="https://n3rr.github.io/p/eqctf-famous-amos/image-6_hu_765fae3d49b89960.png 480w, https://n3rr.github.io/p/eqctf-famous-amos/image-6_hu_e75ac2f42a19337a.png 1024w"
+loading="lazy"
+alt="Upload to /joinsystem"
+class="gallery-image"
+data-flex-grow="379"
+data-flex-basis="910px"
+>&lt;/p>
+&lt;p>Download all HTTP object to analyse it further.&lt;/p>
+&lt;hr>
+&lt;h1 id="reversing-lobsterstealer">Reversing lobsterstealer
+&lt;/h1>&lt;p>&lt;code>BetaTest.pdf&lt;/code> and &lt;code>bangboo.png&lt;/code> are just a normal file, nothing fancy in it.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ file BetaTest.pdf bangboo.png
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BetaTest.pdf: PDF document, version 1.7, 1 page(s)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">bangboo.png: PNG image data, 498 x 498, 8-bit/color RGB, non-interlaced
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>LegitLobsterGameDownloader.dmg&lt;/code> was a compressed data.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="o">$&lt;/span> &lt;span class="n">file&lt;/span> &lt;span class="n">LegitLobsterGameDownloader&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dmg&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">LegitLobsterGameDownloader&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">dmg&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="n">zlib&lt;/span> &lt;span class="n">compressed&lt;/span> &lt;span class="n">data&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Extracting the file will reveal a Mach-O binary named &lt;code>lobsterstealer&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">$ file lobsterstealer
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lobsterstealer: Mach-O 64-bit x86_64 executable, flags:&amp;lt;NOUNDEFS|DYLDLINK|TWOLEVEL|WEAK_DEFINES|BINDS_TO_WEAK|PIE&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Disassabmle it in IDA and rename some of the variables to understand better.&lt;/p>
+&lt;p>&lt;img src="https://n3rr.github.io/p/eqctf-famous-amos/image-7.png"
+width="1460"
+height="427"
+srcset="https://n3rr.github.io/p/eqctf-famous-amos/image-7_hu_ddb6c54035557522.png 480w, https://n3rr.github.io/p/eqctf-famous-amos/image-7_hu_b1f809bfbbd8a393.png 1024w"
+loading="lazy"
+alt="Main function"
+class="gallery-image"
+data-flex-grow="341"
+data-flex-basis="820px"
+>&lt;/p>
+&lt;p>From the main function, it declares an array of hex to a variable &lt;code>hex_array&lt;/code> and a key in hex as &lt;code>hex_key&lt;/code>. Then, convert those two to bytes.&lt;/p>
+&lt;p>Next, it decrypt the the array using RC4 method with the key declared.&lt;/p>
+&lt;p>Using the same process, create a python script to decrypt it.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-py" data-lang="py">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">binascii&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">rc4_decrypt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ciphertext&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">S&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">256&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">i&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">256&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">j&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">key&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">)])&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">256&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">plaintext&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">bytearray&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">byte&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">ciphertext&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">i&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">256&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">j&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">j&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">256&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">plaintext&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">byte&lt;/span> &lt;span class="o">^&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[(&lt;/span>&lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">S&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">j&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">plaintext&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">hex_to_bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hex_string&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nb">bytearray&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">fromhex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hex_string&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">decrypt_command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hex_key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">hex_data&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">key&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">hex_to_bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hex_key&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ciphertext&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">hex_to_bytes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hex_data&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">decrypted&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">rc4_decrypt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">ciphertext&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">decrypted_command&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">decrypted&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">decode&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;utf-8&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">decrypted_command&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">except&lt;/span> &lt;span class="ne">UnicodeDecodeError&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">decrypted&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s1">&amp;#39;__main__&amp;#39;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">key_hex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;9f0fe4d8821ad05cc39a80644daeb8b1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">data_hex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;a37c59750ed63b04e4...44daeb8b1&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">decrypted_command&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">decrypt_command&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key_hex&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">data_hex&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Decrypted command:&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">decrypted_command&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Now the hex data in the array had been succesfully decoded.&lt;/p>
+&lt;h1 id="analysing-the-osascript">Analysing the osascript
+&lt;/h1>&lt;p>The decoded data seems to be an &lt;a class="link" href="https://victorscholz.medium.com/what-is-osascript-e48f11b8dec6" target="_blank" rel="noopener"
+>osascript&lt;/a>. Basically a powershell but for Mac OS.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">osascript -e \&amp;#39;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">set release to true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">set filegrabbers to true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">if release then
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">continued
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Looking through the script suggest that this malware is capable of stealing user credentials, accessing browser-related files like cookies and login databases, and encrypts files and manipulates directories.&lt;/p>
+&lt;p>There&amp;rsquo;s a function called &lt;code>encryptFlag()&lt;/code>, as the name said, to encrypt flag.&lt;/p>
+&lt;p>This is how the function being called&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">encryptFlag(sussyfile, inputFile, outputFile)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>sussyfile&lt;/code> being declared as &lt;code>bangboo.png&lt;/code>, which was mentioned earlier in this writeup.
+&lt;code>flag.png&lt;/code> was the original flag and &lt;code>flag.enc&lt;/code> was the encrypted flag.&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">set&lt;/span> &lt;span class="n">sussyfile&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="s2">&amp;#34;~/Downloads/bangboo.png&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">set&lt;/span> &lt;span class="n">inputFile&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="s2">&amp;#34;/tmp/flag.png&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">set&lt;/span> &lt;span class="n">outputFile&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="s2">&amp;#34;/tmp/flag.enc&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>The &lt;code>encryptFlag()&lt;/code> function uses AES CBC mode with the MD5 hash of &lt;code>bangboo.png&lt;/code> as the key and the iv being the reversed string of the key&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">on encryptFlag(sussyfile, inputFile, outputFile)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> set hexKey to (do shell script &amp;#34;md5 -q &amp;#34; &amp;amp; sussyfile)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> set hexIV to (do shell script &amp;#34;echo \\&amp;#34;&amp;#34; &amp;amp; hexKey &amp;amp; &amp;#34;\\&amp;#34; | rev&amp;#34;)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> do shell script &amp;#34;openssl enc -aes-128-cbc -in &amp;#34; &amp;amp; quoted form of inputFile &amp;amp; &amp;#34; -out &amp;#34; &amp;amp; quoted form of outputFile &amp;amp; &amp;#34; -K &amp;#34; &amp;amp; hexKey &amp;amp; &amp;#34; -iv &amp;#34; &amp;amp; hexIV
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">end encryptFlag
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Using the information retrieved, decrypt the flag.&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Item&lt;/th>
+&lt;th>Value&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>Encryption&lt;/td>
+&lt;td>AES&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Mode&lt;/td>
+&lt;td>CBC&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>Key&lt;/td>
+&lt;td>MD5 of &lt;code>bangboo.png&lt;/code>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>IV&lt;/td>
+&lt;td>Reversed value of Key&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h1 id="flag">Flag
+&lt;/h1>&lt;p>&lt;img src="https://n3rr.github.io/p/eqctf-famous-amos/flag.png"
+width="831"
+height="599"
+srcset="https://n3rr.github.io/p/eqctf-famous-amos/flag_hu_ff765c1040bdedff.png 480w, https://n3rr.github.io/p/eqctf-famous-amos/flag_hu_6f024772e7c4a57e.png 1024w"
+loading="lazy"
+alt="REDACTED"
+class="gallery-image"
+data-flex-grow="138"
+data-flex-basis="332px"
+>&lt;/p></description></item></channel></rss>
