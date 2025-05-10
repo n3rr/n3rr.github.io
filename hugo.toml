@@ -1,4 +1,4 @@
 theme = "blowfish"
-baseURL = 'https://n3rr.xyz/'
+baseURL = 'https://n3rr.github.io/'
 languageCode = 'en-us'
 title = 'My New Hugo Site'
