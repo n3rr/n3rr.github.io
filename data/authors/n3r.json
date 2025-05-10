@@ -1,0 +1,10 @@
+{
+    "name": "n3r",
+    "image" : "assets/profile.png",
+    "bio": "Security Analyst",
+    "social": [
+        { "linkedin": "https://www.linkedin.com/in/nikbadrulmunir1337/" },
+        { "x-twitter": "https://x.com/6E3372" },
+        { "github": "https://github.com/n3rr" }
+    ]
+}

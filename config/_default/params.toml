@@ -1,14 +1,11 @@
-colorScheme = "noir"
+colorScheme = "ocean"
 defaultAppearance = "light"
 autoSwitchAppearance = true
-
 enableSearch = true
 enableCodeCopy = true
-
 replyByEmail = false
-
 disableImageOptimization = false
-defaultBackgroundImage = "../assets/image.jpg"
+defaultBackgroundImage = "../assets/image.png"
 
 disableTextInHeader = false
 giteaDefaultServer = "https://git.fsfe.org"
@@ -21,6 +18,7 @@ buymeacoffee = { }
 verification = { }
 rssnext = { }
 
+highlightCurrentMenuArea = true
 
 [header]
 layout = "fixed"
@@ -71,7 +69,8 @@ showZenMode = false
 
 [list]
 showHero = true
-layoutBackgroundBlur = true
+heroStyle = "background"
+layoutBackgroundBlur = false
 layoutBackgroundHeaderSpace = true
 showBreadcrumbs = false
 showSummary = false
@@ -83,7 +82,7 @@ orderByWeight = false
 groupByYear = true
 cardView = true
 cardViewScreenWidth = false
-constrainItemsWidth = false
+constrainItemsWidth = true
 
 [sitemap]
 excludedKinds = [ "taxonomy", "term" ]
