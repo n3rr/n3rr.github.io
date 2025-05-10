@@ -1,0 +1,3 @@
+baseURL = 'https://n3rr.xyz/'
+languageCode = 'en-us'
+title = 'My New Hugo Site'
