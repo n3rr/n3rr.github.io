@@ -9,3 +9,4 @@ categories:
 Diggersby is a tool designed to infiltrate and monitor Discord bots by utilizing the Discord Bot API. It streamlines the process of capturing messages from potentially malicious bots, enabling efficient tracking and analysis.
 
 =will add more soon=
+:)
